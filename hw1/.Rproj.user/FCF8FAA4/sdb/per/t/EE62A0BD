@@ -1,0 +1,18 @@
+{
+    "contents" : "Run all R codes in R studio.\nChange the path of svmlight in part d to where your svmlight binaries locate.",
+    "created" : 1454184709309.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1067761653",
+    "id" : "EE62A0BD",
+    "lastKnownWriteTime" : 1454184781,
+    "path" : "~/cs498/hw1/README",
+    "project_path" : "README",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "text"
+}

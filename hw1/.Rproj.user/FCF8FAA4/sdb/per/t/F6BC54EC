@@ -1,0 +1,18 @@
+{
+    "contents" : "library(caret)\nlibrary(klaR)\ndata<-read.csv(\"pima-indians-diabetes.data\", header=FALSE)\nx<-data[,-9]\ny<-data[,9]\npartition<-createDataPartition(y=y, p=0.8, list=FALSE)\ntrainX<-x[partition,]\ntrainY<-y[partition]\ntrainY<-as.factor(trainY)\nmodel<-train(trainX, trainY, method='nb', trControl = trainControl(method = 'cv', number=10))\nteclasses<-predict(model,newdata=x[-partition,])\nconfusionMatrix(data=teclasses, reference=y[-partition])",
+    "created" : 1453581431072.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1655815396",
+    "id" : "F6BC54EC",
+    "lastKnownWriteTime" : 1453585806,
+    "path" : "~/cs498/hw1/2c.R",
+    "project_path" : "2c.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
