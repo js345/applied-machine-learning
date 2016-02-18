@@ -2,6 +2,7 @@ from dataLoader import readTrainingData, readValidationData, readMatchingData, r
 from sklearn import svm
 import linearSVM
 #import svm
+import numpy as np
 import naiveBayes
 import randomForests
 import knn
@@ -20,6 +21,10 @@ def predict():
     train = readTrainingData().as_matrix()
     trainX = train[:,1:]
     trainY = train[:,0]
+    mean = trainX.mean(axis=0)
+    std = trainX.std(axis=0)
+    trainX = (trainX - mean) / std
+    testX = (testX - mean) / std
     model = svm.SVC()
     model.fit(trainX, trainY)
     prediction = model.predict(testX)
