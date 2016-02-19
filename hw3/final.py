@@ -27,18 +27,25 @@ class finalClassifier():
                 print correct / 10000
             if int(prediction[i]) == int(label[i]):
                 correct += 1
+        print correct / len(prediction)
         return correct / len(prediction)
 
     def featureAdd(self,row):
         product = []
         sum = 0.0
         norm = 0.0
-        for i in range(73):
-            product.append((row[i]*row[i+73]))
+        count = 0.0
+        for i in range(50):
+            product.append((row[i]*row[i+73]*self.featureWeight[i]*self.featureWeight[i+73]))
             sum += row[i]*row[i+73]*self.featureWeight[i]*self.featureWeight[i+73]
             norm += pow(row[i]*self.featureWeight[i],self.normD) + pow(row[i+73]*self.featureWeight[i+73],self.normD)
-        product.append(sum)
-        product.append(pow(norm,1.0/self.normD))
+            if (row[i]*row[i+73] > 0):
+                count += self.featureWeight[i]*self.featureWeight[i+73]
+            else:
+                count -= self.featureWeight[i]*self.featureWeight[i+73]
+        #product.append(sum)
+        #product.append(pow(norm,1.0/self.normD))
+        product.append(count)
         return np.array(product)
 
     def preprocess(self,featureWeight,dotWeight,cosWeight):
@@ -50,9 +57,13 @@ class finalClassifier():
         # computing products aibi and dot product and cos theta using 2 norm
         addedTrain = np.apply_along_axis(self.featureAdd,1,self.trainX)
         addedTest = np.apply_along_axis(self.featureAdd,1,self.testX)
+        '''
         # computing abs difference of every feature
-        self.trainX = np.absolute(self.trainX[:,:73] - self.trainX[:,73:])
-        self.testX = np.absolute(self.testX[:,:73] - self.testX[:,73:])
+        trainAbs = np.absolute(self.trainX[:,:73] - self.trainX[:,73:])
+        testAbs = np.absolute(self.testX[:,:73] - self.testX[:,73:])
+        self.trainX = np.concatenate((self.trainX,trainAbs),axis=1)
+        self.testX = np.concatenate((self.testX,testAbs),axis=1)
+        '''
         # put together
         self.trainX = np.concatenate((self.trainX,addedTrain),axis=1)
         self.testX = np.concatenate((self.testX,addedTest),axis=1)
@@ -61,7 +72,7 @@ class finalClassifier():
         self.testX = self.normalization.transform(testX)
 
     def predict(self):
-        prediction = self.model.predict(self.testX)
+        prediction = self.model.predict(self.testX).astype(int)
         self.calculateAccuracy(prediction,self.testY)
         return prediction
 
@@ -73,6 +84,16 @@ if __name__ == '__main__':
     trainY = train[:,0]
     mySVM = finalClassifier(trainX,trainY,testX,testY)
     # here to change attribute weights -- very important
-    mySVM.preprocess(np.ones(73),1,1)
+    featureWeight = np.ones(73)
+    featureWeight[19] = 0.1 # smile
+    featureWeight[22] = 0.1 # blurry
+    featureWeight[23] = 0.1 # harsh lighting
+    featureWeight[24] = 0.1 # flash
+    featureWeight[25] = 0.1 # soft lighting
+    featureWeight[26] = 0.1 # outdoor
+    featureWeight[55] = 0.1 # color photo
+    featureWeight[56] = 0.1 # pose photo
+    mySVM.preprocess(featureWeight,1,1)
     mySVM.train()
-    writePrediction(mySVM.predict())
+    answer = mySVM.predict()
+    writePrediction(answer)

@@ -4,6 +4,8 @@ from sklearn.cluster import KMeans
 from dataLoader import readTrainingData, readValidationData,readEvalData,readEvalResult
 from dataWriter import writePrediction
 import numpy as np
+import warnings
+warnings.filterwarnings("ignore")
 
 def calculateAccuracy(prediction,label):
     correct = 0
@@ -36,21 +38,20 @@ def predict(eval, clusters, model) :
     labels = list()
     for i in range(len(eval)) :
         k = clusters.predict(eval[i])
-        sample = np.asarray(eval[i])
-        sample.reshape(1.-1)
-        label = model[k].predict(sample)
+        tmp = np.array(eval[i]).reshape(1,-1)
+        label = model[k].predict(tmp)
         labels.append(label)
     return labels
 
 if __name__ == '__main__':
     train = readTrainingData().as_matrix()
-    clusters,model = clustering(train, 10)
+    clusters,model = clustering(train, 3)
     evalData = readEvalData().as_matrix()
     labels = predict(evalData, clusters, model)
-    result = readEvalResult().as_matrix()
+    result = readEvalResult().as_matrix()[:,1]
     acc = calculateAccuracy(labels,result)
     print acc
-    writePrediction(labels)
+    #writePrediction(labels)
 
 
 

@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def readTrainingData():
-    df = pd.read_csv("pubfig_train_50000_pairs.txt", sep="\t", skipinitialspace=True, skiprows=1, header=None)
+    df = pd.read_csv("pubfig_dev_50000_pairs.txt", sep="\t", skipinitialspace=True, skiprows=1, header=None)
     return df
 
 def readValidationData(number):
