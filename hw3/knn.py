@@ -1,5 +1,5 @@
 from __future__ import division
-from dataLoader import readValidationData, readMatchingData,readEvalData
+from dataLoader import readValidationData, readMatchingData, readEvalData
 #from dataWriter import writePrediction
 from pyflann import *
 import numpy as np
