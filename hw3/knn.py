@@ -1,6 +1,5 @@
 from __future__ import division
 from dataLoader import readValidationData, readMatchingData,readEvalData
-#from dataWriter import writePrediction
 from pyflann import *
 import numpy as np
 
@@ -54,5 +53,3 @@ if __name__ == '__main__':
 
     for i in range(1,4):
         print approxKNN(i)
-
-    #writePrediction(knnKaggle())

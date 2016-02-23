@@ -1,6 +1,7 @@
 from __future__ import division
 from sklearn import svm
 from dataLoader import readTrainingData, readValidationData
+import time
 
 def calculateAccuracy(prediction,label):
     correct = 0
@@ -32,7 +33,9 @@ def testModel(number,model,mean,std):
     return calculateAccuracy(prediction, testY)
 
 if __name__ == '__main__':
+    start = time.time()
     model,mean,std = applySVM()
     for i in range(1,4):
         accuracy = testModel(i,model,mean,std)
         print accuracy
+    print("--- %s seconds ---" % (time.time() - start))
