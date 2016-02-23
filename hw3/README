@@ -1,0 +1,14 @@
+Run naive bayes using naiveBayes.py
+Run linear svm using linearSVM.py
+Run random forest using randomForest.py
+Run nearest neighbor using knn.py
+Run kernel svm using final.py
+
+python [filename]
+
+Make sure you have data files in the same directory.
+
+Dependencies
+python 2.7.11
+pandas 0.17.1
+scikit-learn 0.17

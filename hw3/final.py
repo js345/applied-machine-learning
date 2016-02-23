@@ -22,7 +22,7 @@ class finalClassifier():
         # split data into smaller subsets and then voting
         for i in range(self.number_of_split):
             # classifier - look at sklearn svc or nusvc and tune parameters
-            self.model.append(svm.SVC(C=1.1,gamma='auto'))
+            self.model.append(svm.SVC(C=0.4,gamma='auto'))
             self.model[i].fit(self.trainX[i*self.range_of_split:(i+1)*self.range_of_split],self.trainY[i*self.range_of_split:(i+1)*self.range_of_split])
 
     def calculateAccuracy(self,prediction,label):
@@ -120,5 +120,5 @@ if __name__ == '__main__':
     print "train acc " + str(mySVM.calculateAccuracy(answer,trainY))
     testX = readEvalData().as_matrix()
     answer = mySVM.predict(testX)
-    #writePrediction(answer)
+    writePrediction(answer.astype(int))
     print("--- %s seconds ---" % (time.time() - start))
