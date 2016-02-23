@@ -1,0 +1,28 @@
+Linear SVM
+training acc: 0.48908
+validation1 acc: 0.4755
+validation2 acc: 0.47795
+validation3 acc: 0.4707
+eval acc: 0.47245
+
+Naive Bayes
+training acc: 0.50918
+validation1 acc: 0.4969
+validation2 acc: 0.50045
+validation3 acc: 0.4943
+eval acc: 0.4988
+
+
+Random Forests
+training acc: 0.82606
+validation1 acc: 0.7205
+validation2 acc: 0.71955
+validation3 acc: 0.7201
+eval acc: 0.7257
+
+KNN
+train acc: 1.0
+validation1 acc: 1.0
+validation2 acc: 1.0
+validation3 acc: 1.0
+eval acc: 1.0

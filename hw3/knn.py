@@ -1,5 +1,5 @@
 from __future__ import division
-from dataLoader import readValidationData, readMatchingData,readEvalData
+from dataLoader import readValidationData, readMatchingData,readEvalData,readEvalResult,readTrainingData
 from pyflann import *
 import numpy as np
 
@@ -38,6 +38,41 @@ def classify(result1,result2,name):
             prediction.append(0)
     return np.array(prediction)
 
+def testTrain():
+    matchData = readMatchingData().as_matrix()
+    name = matchData[:,:2]
+    attribute = matchData[:,2:]
+
+    train = readTrainingData().as_matrix()
+    trainX = train[:,1:]
+    trainY = train[:,0]
+    
+    firstFace,secondFace = trainX[:,:73],trainX[:,73:]
+    flann = FLANN()
+
+    result1,dist1 = flann.nn(attribute.astype(float32),firstFace.astype(float32), num_neighbors=1)
+    result2,dist2 = flann.nn(attribute.astype(float32),secondFace.astype(float32), num_neighbors=1)
+
+    prediction = classify(result1,result2,name)
+
+    return calculateAccuracy(prediction,trainY)
+
+def testEval():
+    matchData = readMatchingData().as_matrix()
+    name = matchData[:,:2]
+    attribute = matchData[:,2:]
+    testX = readEvalData().as_matrix()
+    firstFace,secondFace = testX[:,:73],testX[:,73:]
+    testY = label = map(lambda x:x[1], readEvalResult().as_matrix())
+    flann = FLANN()
+
+    result1,dist1 = flann.nn(attribute.astype(float32),firstFace.astype(float32), num_neighbors=1)
+    result2,dist2 = flann.nn(attribute.astype(float32),secondFace.astype(float32), num_neighbors=1)
+
+    prediction = classify(result1,result2,name)
+
+    return calculateAccuracy(prediction,testY)
+
 def knnKaggle():
     matchData = readMatchingData().as_matrix()
     name = matchData[:,:2]
@@ -50,6 +85,10 @@ def knnKaggle():
     return classify(result1,result2,name)
 
 if __name__ == '__main__':
-
+    print "KNN"
+    print "train acc: " + str(testTrain())
     for i in range(1,4):
-        print approxKNN(i)
+
+        accuracy = approxKNN(i)
+        print "validation" + str(i) + " acc: " + str(accuracy)
+    print "eval acc: " + str(testEval())
