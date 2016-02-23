@@ -1,28 +1,31 @@
+(a). 
 Linear SVM
-training acc: 0.48908
-validation1 acc: 0.4755
-validation2 acc: 0.47795
-validation3 acc: 0.4707
-eval acc: 0.47245
+training acc: 0.51172
+eval acc: 0.4991
 
 Naive Bayes
 training acc: 0.50918
-validation1 acc: 0.4969
-validation2 acc: 0.50045
-validation3 acc: 0.4943
 eval acc: 0.4988
 
 
 Random Forests
+We have tuned parameters to prevent overfit
 training acc: 0.82606
-validation1 acc: 0.7205
-validation2 acc: 0.71955
-validation3 acc: 0.7201
 eval acc: 0.7257
 
+(b).
 KNN
 train acc: 1.0
-validation1 acc: 1.0
-validation2 acc: 1.0
-validation3 acc: 1.0
 eval acc: 1.0
+
+(c).
+SVM with RBF kernel
+train acc: 
+eval acc: 0.7907
+
+(d).
+We preprocessed feature vectors in the following way. First, we decided that we don’t want some of features which are not relevant such as smile, lighting and pose photo. Then we calculate the absolute difference between every feature in face 1 and face 2. Also, it is important to note that different signs in the feature indicate that they might belong to different class. Therefore we calculated the product of features in face 1 and features in face 2 to capture the sign difference. We also added some features like the dot product of two face vectors and the cosine similarity of the two face vectors. 
+In terms of model selection, we chose SVM with RBF kernel implemented in scikit-learn in Python. We choose parameter C to be 1.1 and gamma to be 1 / number_of_features which is very close to default.
+
+(e).
+Naive bases and linear SVM is pretty bad for this task. Random forest can easily overfit to the training data. After experiments, we found that SVMs with nonlinear kernel work the best for this data. But preprocessing is also very important for this data.

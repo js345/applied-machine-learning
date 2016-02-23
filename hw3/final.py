@@ -1,8 +1,7 @@
 from __future__ import division
-from dataLoader import readTrainingData, readValidationData, readMatchingData, readEvalData, readEvalResult
+from dataLoader import readTrainingData, readEvalData
 from dataWriter import writePrediction
 from sklearn import svm
-from sklearn import preprocessing
 import numpy as np
 import time
 
@@ -10,13 +9,11 @@ import time
 class finalClassifier():
     best_score = 0.79685
 
-    def __init__(self,trainX,trainY,testX,testY):
+    def __init__(self,trainX,trainY):
         self.number_of_split = 1
         self.range_of_split = len(trainY) / self.number_of_split
         self.trainX = trainX
         self.trainY = trainY
-        self.testX = testX
-        self.testY = testY
         self.normD = 2  # using 2 norms - a parameter to change
         #self.normalization = preprocessing.StandardScaler().fit(trainX)    # normalization function - parameter to change
 
@@ -31,11 +28,8 @@ class finalClassifier():
     def calculateAccuracy(self,prediction,label):
         correct = 0
         for i in range(len(prediction)):
-            if i == 10000:
-                print correct / 10000
             if int(prediction[i]) == int(label[i]):
                 correct += 1
-        print correct / len(prediction)
         return correct / len(prediction)
 
     def featureAdd(self,row):
@@ -67,11 +61,9 @@ class finalClassifier():
         self.featureWeight = np.append(self.featureWeight,[self.dotWeight,self.cosWeight])
         # computing products aibi and abs diff
         addedTrain = np.apply_along_axis(self.featureAdd,1,self.trainX)
-        addedTest = np.apply_along_axis(self.featureAdd,1,self.testX)
 
         # put together
         self.trainX = np.concatenate((self.trainX,addedTrain),axis=1)
-        self.testX = np.concatenate((self.testX,addedTest),axis=1)
 
         # set up mask
         mask = []
@@ -79,31 +71,39 @@ class finalClassifier():
             if self.featureWeight[i] == 0:
                 mask.append(i)
         self.trainX = np.delete(self.trainX,mask,axis=1)
-        self.testX = np.delete(self.testX,mask,axis=1)
+
 
         # scale them - can change the sequence of operation to decide which to scale
-        mean = self.trainX.mean(axis=0)
-        std = self.trainX.std(axis=0)
-        self.trainX = (self.trainX - mean) / std
-        self.testX = (self.testX - mean) / std
+        self.mean = self.trainX.mean(axis=0)
+        self.std = self.trainX.std(axis=0)
+        self.trainX = (self.trainX - self.mean) / self.std
 
-    def predict(self):
-        prediction = np.zeros(len(self.testY))
+    def predict(self,testX):
+        addedTest = np.apply_along_axis(self.featureAdd,1,testX)
+        testX = np.concatenate((testX,addedTest),axis=1)
+        # set up mask
+        mask = []
+        for i in range(len(self.featureWeight)):
+            if self.featureWeight[i] == 0:
+                mask.append(i)
+        testX = np.delete(testX,mask,axis=1)
+        testX = (testX - self.mean) / self.std
+
+
+        prediction = np.zeros(len(testX))
         for i in range(self.number_of_split):
-            prediction += self.model[i].predict(self.testX).astype(int)
+            prediction += self.model[i].predict(testX).astype(int)
         prediction /= self.number_of_split
         prediction = np.rint(prediction)
-        self.calculateAccuracy(prediction,self.testY)
         return prediction
 
 if __name__ == '__main__':
     start = time.time()
-    testX = readEvalData().as_matrix()
-    testY = readEvalResult().as_matrix()[:,1]
+
     train = readTrainingData().as_matrix()
     trainX = train[:,1:]
     trainY = train[:,0]
-    mySVM = finalClassifier(trainX,trainY,testX,testY)
+    mySVM = finalClassifier(trainX,trainY)
     # here to change attribute weights -- very important
     featureWeight = np.ones(73)
     featureWeight[19] = 0 # smile
@@ -116,6 +116,9 @@ if __name__ == '__main__':
     featureWeight[56] = 0 # pose photo
     mySVM.preprocess(featureWeight,1,1)
     mySVM.train()
-    answer = mySVM.predict()
-    writePrediction(answer)
+    answer = mySVM.predict(trainX)
+    print "train acc " + str(mySVM.calculateAccuracy(answer,trainY))
+    testX = readEvalData().as_matrix()
+    answer = mySVM.predict(testX)
+    #writePrediction(answer)
     print("--- %s seconds ---" % (time.time() - start))

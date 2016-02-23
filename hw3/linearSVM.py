@@ -1,6 +1,6 @@
 from __future__ import division
 from sklearn import svm
-from dataLoader import readTrainingData, readValidationData, readEvalData, readEvalResult
+from dataLoader import readTrainingData, readValidationData
 
 def calculateAccuracy(prediction,label):
     correct = 0
@@ -26,17 +26,9 @@ def testModel(number,model):
     prediction = model.predict(testX)
     return calculateAccuracy(prediction, testY)
 
-def testEval():
-    testX = readEvalData().as_matrix()
-    testY = map(lambda x: x[1], readEvalResult().as_matrix())
-    prediction = model.predict(testX)
-    return calculateAccuracy(prediction, testY)
-
 if __name__ == '__main__':
     print "Linear SVM"
     model = applyLinearSVM()
     for i in range(1,4):
         accuracy = testModel(i,model)
         print "validation" + str(i) + " acc: " + str(accuracy)
-
-    print "eval acc: " + str(testEval())

@@ -1,5 +1,5 @@
 from __future__ import division
-from dataLoader import readValidationData, readMatchingData,readEvalData,readEvalResult,readTrainingData
+from dataLoader import readValidationData, readMatchingData,readEvalData,readTrainingData
 from pyflann import *
 import numpy as np
 
@@ -57,22 +57,6 @@ def testTrain():
 
     return calculateAccuracy(prediction,trainY)
 
-def testEval():
-    matchData = readMatchingData().as_matrix()
-    name = matchData[:,:2]
-    attribute = matchData[:,2:]
-    testX = readEvalData().as_matrix()
-    firstFace,secondFace = testX[:,:73],testX[:,73:]
-    testY = label = map(lambda x:x[1], readEvalResult().as_matrix())
-    flann = FLANN()
-
-    result1,dist1 = flann.nn(attribute.astype(float32),firstFace.astype(float32), num_neighbors=1)
-    result2,dist2 = flann.nn(attribute.astype(float32),secondFace.astype(float32), num_neighbors=1)
-
-    prediction = classify(result1,result2,name)
-
-    return calculateAccuracy(prediction,testY)
-
 def knnKaggle():
     matchData = readMatchingData().as_matrix()
     name = matchData[:,:2]
@@ -91,4 +75,3 @@ if __name__ == '__main__':
 
         accuracy = approxKNN(i)
         print "validation" + str(i) + " acc: " + str(accuracy)
-    print "eval acc: " + str(testEval())
