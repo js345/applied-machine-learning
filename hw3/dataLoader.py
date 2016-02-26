@@ -19,9 +19,5 @@ def readEvalData():
     df = pd.read_csv("pubfig_kaggle_eval.txt", sep="\t", skipinitialspace=True, skiprows=2, header=None)
     return df
 
-def readEvalResult():
-    df = pd.read_csv("eval_solution.txt", sep=",", skipinitialspace=True, skiprows=1, header=None)
-    return df
-
 if __name__ == '__main__':
     print readEvalData()

@@ -1,5 +1,5 @@
 from __future__ import division
-from dataLoader import readTrainingData, readValidationData, readMatchingData, readEvalData, readEvalResult
+from dataLoader import readTrainingData,readEvalData
 from sklearn import svm
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
