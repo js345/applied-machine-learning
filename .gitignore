@@ -1,2 +1,4 @@
 hw3/*.txt
 hw3/*.pyc
+*.pyc
+*.xml
