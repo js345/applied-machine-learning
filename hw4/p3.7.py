@@ -6,6 +6,7 @@ Created on 2/27/16
 
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
+from sklearn.cross_decomposition import PLSRegression as PLS
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -29,6 +30,22 @@ def f(cls):
     else:
         return "b"
 c = [f(s) for s in y]
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+for c, i, target_name in zip("rb", target_names, target_names):
+    ax.scatter(X_r[y == i, 0], X_r[y == i, 1], X_r[y == i, 2], c=c)
+ax.set_xlabel('X Label')
+ax.set_ylabel('Y Label')
+ax.set_zlabel('Z Label')
+
+plt.show()
+
+# part b
+PLS1 = PLS(n_components=3)
+number_map = {"M": 0,"B": 1}
+numeric_y = np.array(map(lambda x : number_map[x],y))
+result = PLS1.fit_transform(x,numeric_y)
+X_r = result[0]
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 for c, i, target_name in zip("rb", target_names, target_names):
