@@ -17,7 +17,7 @@ w,v = zip(*sorted(zip(w, v),reverse=True))
 #plt.eventplot(w1, orientation= 'horizontal', colors = 'b')
 #plt.axis('off')
 #plt.show()
-"""
+
 # eigenvalue plot
 plt.plot(np.arange(len(w)),w)
 plt.title("Eigenvalues")
@@ -31,7 +31,7 @@ for i in range(3):
     plt.stem(x, y, linefmt='b-', markerfmt='bo', basefmt='r-')
     plt.title(eigenv)
     plt.show()
-    """
+
 
 # 3.5c
 pca = PCA(n_components=2)
