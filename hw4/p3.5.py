@@ -34,6 +34,7 @@ for i in range(3):
 
 
 # 3.5c
+x = df[:,1:]
 pca = PCA(n_components=2)
 X_r = pca.fit(x).transform(x)
 target_names = [1,2,3]

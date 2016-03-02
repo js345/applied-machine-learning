@@ -16,7 +16,22 @@ df = pd.read_csv("iris.data.txt", sep=",", skipinitialspace=True, skiprows=0, he
 colors = {"Iris-setosa":"red","Iris-versicolor":"blue","Iris-virginica":"green"}
 shapes = {"Iris-setosa":"x","Iris-versicolor":"o","Iris-virginica":"^"}
 number_map = {"Iris-setosa": -1,"Iris-versicolor": 0  ,"Iris-virginica": 1 }
-# scatter_matrix(df, alpha=1, figsize=(30,30), marker='x', c=df[4].apply(lambda x: colors[x]))
+scatter_matrix(df, alpha=1, figsize=(30,30), marker='x', c=df[4].apply(lambda x: colors[x]))
+
+pca = PCA(n_components=2)
+X = df.as_matrix()[:, :4]
+y = df.as_matrix()[:,4]
+X_r = pca.fit(X).transform(X)
+target_names = ["Iris-setosa", "Iris-versicolor", "Iris-virginica"]
+
+plt.figure()
+for c, i, target_name in zip("rgb", ["Iris-setosa", "Iris-versicolor", "Iris-virginica"], target_names):
+    plt.scatter(X_r[y == i, 0], X_r[y == i, 1], c=c, label=target_name)
+plt.legend()
+plt.title('PCA of IRIS dataset')
+
+plt.show()
+
 PLS1 = PLS(n_components=2)
 X = df.as_matrix()[:, :4]
 y = np.array(map(lambda x : number_map[x],df.as_matrix()[:, 4]))
@@ -27,18 +42,7 @@ y = np.array(map(lambda x : string_map[x],result[1]))
 target_names = ["Iris-setosa", "Iris-versicolor", "Iris-virginica"]
 for c, i, target_name in zip("rgb", ["Iris-setosa", "Iris-versicolor", "Iris-virginica"], target_names):
     plt.scatter(result[0][y == i, 0],result[0][y == i, 1], c=c, label=target_name)
-#print result[1]
 plt.legend()
+plt.title('PLS1 of IRIS dataset')
 plt.show()
-'''pca = PCA(n_components=2)
-X_r = pca.fit(X).transform(X)
-target_names = ["Iris-setosa", "Iris-versicolor", "Iris-virginica"]
-
-# plt.figure()
-for c, i, target_name in zip("rgb", ["Iris-setosa", "Iris-versicolor", "Iris-virginica"], target_names):
-    plt.scatter(X_r[y == i, 0], X_r[y == i, 1], c=c, label=target_name)
-plt.legend()
-plt.title('PCA of IRIS dataset')
-
-plt.show()'''
 
