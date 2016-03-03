@@ -1,8 +1,9 @@
 hw3/*.txt
 hw3/*.pyc
 hw4/.idea
-hw4/.ipynb_checkpoints
+hw4/.ipynb_checkpoints/*
 hw4/wdbc.data.txt
+hw4/.idea/*
 *.pyc
 *.xml
-.idea
+.idea/*
