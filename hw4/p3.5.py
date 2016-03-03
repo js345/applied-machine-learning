@@ -27,6 +27,7 @@ for i in range(3):
     x = np.arange(len(y))
     plt.stem(x, y, linefmt='b-', markerfmt='bo', basefmt='r-')
     plt.title(eigenv)
+    plt.axis([-1,13,-1,1])
     plt.show()
 
 
