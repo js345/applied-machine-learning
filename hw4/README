@@ -1,0 +1,11 @@
+Dependencies
+python 2.7.11
+pandas 0.17.1
+scikit-learn 0.17
+numpy 1.10
+matplotlib 1.5.1
+
+To run code
+python [filename]
+
+Replace filenames with p3.4.py, p3.5.py, p3.7.py
