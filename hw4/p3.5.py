@@ -39,4 +39,6 @@ for c, i, target_name in zip("rgb", target_names, target_names):
     plt.scatter(X_r[Y == i, 0], X_r[Y == i, 1], c=c, label=target_name)
 plt.legend()
 plt.title('PCA of Wine')
+plt.axis('equal')
+
 plt.show()

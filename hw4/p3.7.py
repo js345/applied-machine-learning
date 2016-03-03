@@ -37,6 +37,10 @@ for c, i, target_name in zip("rb", target_names, target_names):
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
+plt.axis('equal')
+ax.set_xlim([-1000,4000])
+ax.set_ylim([-1000,4000])
+ax.set_zlim([-1000,4000])
 
 plt.show()
 
@@ -53,6 +57,7 @@ for c, i, target_name in zip("rb", target_names, target_names):
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
+plt.axis('equal')
 
 plt.show()
 

@@ -29,6 +29,7 @@ for c, i, target_name in zip("rgb", ["Iris-setosa", "Iris-versicolor", "Iris-vir
     plt.scatter(X_r[y == i, 0], X_r[y == i, 1], c=c, label=target_name)
 plt.legend()
 plt.title('PCA of IRIS dataset')
+plt.axis('equal')
 plt.show()
 
 # PLS1
@@ -44,6 +45,8 @@ for c, i, target_name in zip("rgb", ["Iris-setosa", "Iris-versicolor", "Iris-vir
     plt.scatter(result[0][y == i, 0],result[0][y == i, 1], c=c, label=target_name)
 plt.legend()
 plt.title('PLS1 of IRIS dataset')
+plt.axis('equal')
+
 plt.show()
 
 # PLS2
@@ -58,4 +61,6 @@ for c, i, target_name in zip("rgb", [0, 1, 2], target_names):
     plt.scatter(result[0][y == i, 0],result[0][y == i, 1], c=c, label=target_name)
 plt.legend()
 plt.title('PLS2 of IRIS dataset')
+plt.axis('equal')
+
 plt.show()
