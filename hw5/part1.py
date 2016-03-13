@@ -23,7 +23,6 @@ class EM:
 
         self.data = np.array(output)
 
-        # initialize p and 𝝿
         self.pi_s = np.array([1/30 for i in range(self.topic_num)])
         self.p_s = np.array([[1/self.word_num for i in range(self.word_num)] for j in range(30)])
 
@@ -50,22 +49,17 @@ class EM:
             w[i] /= sum_
         '''
 
-        R = self.data.dot(np.log(self.p_s).T)
-        log_pi = np.log(self.pi_s)
+        R = self.data.dot(np.log10(self.p_s).T)
+        log_pi = np.log10(self.pi_s)
         sum_log_pi = np.sum(log_pi)
-
-        print(R)
 
         for i in range(R.shape[0]):
             sum_R_i = np.sum(R[i])
-            print(sum_R_i)
             for j in range(R.shape[1]):
 
                 w[i][j] = R[i][j] + log_pi[j] - (sum_log_pi + sum_R_i)
-                w[i][j] = np.e ** w[i][j]
+                w[i][j] = 10 ** w[i][j]
 
-        print(w.shape)
-        print(w)
         self.w = w
 
         print('done e_step')
