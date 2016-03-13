@@ -25,13 +25,13 @@ class EM:
 
         # initialize p and 𝝿
         self.pi_s = np.array([1/30 for i in range(self.topic_num)])
-        self.p_s = np.array([[[1/self.word_num] for i in range(self.word_num)] for j in range(30)])
+        self.p_s = np.array([[1/self.word_num for i in range(self.word_num)] for j in range(30)])
 
     def e_step(self):
         # i = range(self.doc_count)
         # j = range(30)
         w = np.array([[0 for j in range(self.topic_num)] for i in range(self.doc_count)])
-
+        '''
         def product(end, i, j):
             output = 1
             for k in range(end):
@@ -39,15 +39,33 @@ class EM:
             return output
 
         for i in range(self.doc_count):
-            sum_ = 0
+            #sum_ = 0
             for j in range(self.topic_num):
                 w[i][j] = product(self.word_num, i, j) * self.pi_s[j]
-                sum_ += w[i][j]
-            #sum_ = sum(w[i])
+                #sum_ += w[i][j]
+            sum_ = sum(w[i])
 
-            for j in range(self.topic_num):
-                w[i][j] /= sum_
-            # w[i] /= sum_
+            #for j in range(self.topic_num):
+            #    w[i][j] /= sum_
+            w[i] /= sum_
+        '''
+
+        R = self.data.dot(np.log(self.p_s).T)
+        log_pi = np.log(self.pi_s)
+        sum_log_pi = np.sum(log_pi)
+
+        print(R)
+
+        for i in range(R.shape[0]):
+            sum_R_i = np.sum(R[i])
+            print(sum_R_i)
+            for j in range(R.shape[1]):
+
+                w[i][j] = R[i][j] + log_pi[j] - (sum_log_pi + sum_R_i)
+                w[i][j] = np.e ** w[i][j]
+
+        print(w.shape)
+        print(w)
         self.w = w
 
         print('done e_step')
