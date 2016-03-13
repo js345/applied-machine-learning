@@ -6,6 +6,9 @@ hw4/.idea
 hw4/.ipynb_checkpoints/*
 hw4/wdbc.data.txt
 hw4/.idea/*
+hw5/.idea
+hw5/.ipynb_checkpoints/*
+hw5/tags
 *.pyc
 *.xml
 .idea/*
