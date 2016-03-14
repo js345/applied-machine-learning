@@ -23,7 +23,8 @@ class EM:
 
         self.data = np.array(output, dtype=np.float128)
 
-        self.pi_s = np.array([1/30 for i in range(self.topic_num)], dtype=np.float128)
+        self.pi_s = np.random.rand(self.topic_num) #np.array([1/30 for i in range(self.topic_num)], dtype=np.float128)
+        self.pi_s = self.pi_s /  np.sum(self.pi_s)
         self.p_s = np.array([[1/self.word_num for i in range(self.word_num)] for j in range(30)], dtype=np.float128)
 
     def e_step(self):
@@ -58,23 +59,23 @@ class EM:
             #w[i] /= sum_
         '''
 
-        R = self.data.dot(np.log(self.p_s).T)
-        log_pi = np.log(self.pi_s)
+        R = self.data.dot(np.log10(self.p_s).T)
+        log_pi = np.log10(self.pi_s)
 
         for i in range(R.shape[0]):
             sum_ = 0
             log_Amax = 0
             for j in range(R.shape[1]):
-                w[i, j] = np.e ** (R[i, j] + log_pi[j])
+                w[i, j] = 10 ** (R[i, j] + log_pi[j])
 
                 if w[i, j] > log_Amax:
                     log_Amax = w[i, j]
 
-                sum_ += np.e ** (w[i, j] - log_Amax)
+                sum_ += 10 ** (w[i, j] - log_Amax)
 
             for j in range(R.shape[1]):
-                w[i, j] = w[i, j] - log_Amax - np.log(sum_)
-                w[i, j] = np.e ** w[i, j]
+                w[i, j] = w[i, j] - log_Amax - np.log10(sum_)
+                w[i, j] = 10 ** w[i, j]
         # print(w)
 
         self.w = w
@@ -88,10 +89,10 @@ class EM:
 
             self.pi_s[j] = 0
             for i in range(self.doc_count):
-                numer += (self.data[i] * self.w[i][j])
-                denom += (sum(self.data[i]) * self.w[i][j])
+                numer += (self.data[i] * self.w[i, j])
+                denom += (np.sum(self.data[i]) * self.w[i, j])
 
-                self.pi_s[j] += self.w[i][j]
+                self.pi_s[j] += self.w[i, j]
 
             self.p_s[j] = numer / denom
             self.pi_s[j] = self.pi_s[j] / self.doc_count
@@ -99,12 +100,26 @@ class EM:
 
         print('done m_step')
         print(np.sum(self.pi_s))
+        print(np.sum(self.p_s[0]))
 
     def em_step(self):
         self.e_step()
         self.m_step()
 
+        print(self.p_s)
         print(self.pi_s)
+
+        # smooth
+        self.p_s += 0.02
+        for i in range(self.p_s.shape[0]):
+            self.p_s[i] = self.p_s[i] / np.sum(self.p_s[i])
+
+        self.e_step()
+        self.m_step()
+
+        print(self.p_s)
+        print(self.pi_s)
+
 
 if __name__ == '__main__':
     em = EM('docword.nips.txt')
