@@ -98,14 +98,18 @@ class EM:
             self.m_step()
 
             # smooth
+
             self.p_s += 0.02
             for i in range(self.p_s.shape[0]):
                 self.p_s[i] = self.p_s[i] / np.sum(self.p_s[i])
 
             l = self.likelihood()
             print 'relative difference in likelihood'
-            print (l - self.l) / self.l
+            relative = abs((l - self.l) / self.l)
+            print relative
             self.l = l
+            if relative < 1e-6:
+                break
 
     def likelihood(self):
         l = 0
