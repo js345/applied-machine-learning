@@ -32,7 +32,11 @@ class EM:
         # self.pi_s = np.zeros(30)
         # self.pi_s[0] = 1
 
-        self.p_s = np.array([[1/self.word_num for i in range(self.word_num)] for j in range(30)], dtype=np.float128)
+        self.p_s = np.array([np.random.rand(self.word_num) for j in range(30)], dtype=np.float128)
+        for i in range(30):
+            sum_ = np.sum(self.p_s[i])
+            for j in range(self.word_num):
+                self.p_s[i][j] /= sum_
 
     def e_step(self):
         # i = range(self.doc_count)
@@ -44,12 +48,10 @@ class EM:
             output = np.float128(1)
             for k in range(end):
                 output *= (self.p_s[j][k] ** self.data[i][k])
-
                 if self.p_s[j][k] == 0:
                     print('fcuk 0')
                     exit(0)
             return output
-
         for i in range(self.doc_count):
             sum_ = 0
             for j in range(self.topic_num):
@@ -58,9 +60,7 @@ class EM:
                 print('here ', w[i, j])
                 sum_ += w[i, j]
             # sum_ = sum(w[i])
-
             print(sum_)
-
             for j in range(self.topic_num):
                 w[i, j] /= sum_
             #w[i] /= sum_
@@ -70,25 +70,39 @@ class EM:
         log_pi = np.log10(self.pi_s)
 
         for i in range(R.shape[0]):
+            sum_ = 0.0
+            max_ = 0.0
+            for j in range(R.shape[1]):
+                w[i][j] = R[i, j] + log_pi[j]
+                print R[i,j] + log_pi[j]
+
+                if (w[i][j] < max_):
+                    max_ = w[i][j]
+            for j in range(R.shape[1]):
+                w[i][j] -= max_
+                sum_ += w[i][j]
+            for j in range(R.shape[1]):
+                w[i][j] /= (sum_)
+        """for i in range(R.shape[0]):
             sum_ = 0
-            log_Amax = 0
+            #log_Amax = -999999.0
             for j in range(R.shape[1]):
                 w[i, j] = 10 ** (R[i, j] + log_pi[j])
 
-                if w[i, j] > log_Amax:
-                    log_Amax = w[i, j]
+                #if w[i, j] > log_Amax:
+                #    log_Amax = w[i, j]
 
-                sum_ += 10 ** (w[i, j] - log_Amax)
+                sum_ += w[i, j]#10 ** (w[i, j] - log_Amax)
 
             for j in range(R.shape[1]):
-                w[i, j] = w[i, j] - log_Amax - np.log10(sum_)
-                w[i, j] = 10 ** w[i, j]
+                w[i, j] = 10** np.log10(w[i, j]) - np.log10(sum_)#w[i, j] = w[i, j] - log_Amax - np.log10(sum_)
+                #w[i, j] = 10 ** w[i, j]"""
 
         print(np.sum(w, axis = 1))
         print(np.sum(w.T, axis = 1))
 
         self.w = w
-
+        print w
         print('done e_step')
 
     def m_step(self):
@@ -98,8 +112,8 @@ class EM:
 
             #self.pi_s[j] = 0
             for i in range(self.doc_count):
-                numer += (self.data[i] * self.w[i, j])
-                denom += (np.sum(self.data[i]) * self.w[i, j])
+                numer += (self.data[i] * self.w[i][j])
+                denom += (np.sum(self.data[i]) * self.w[i][j])
 
                 # self.pi_s[j] += self.w[i, j]
 
@@ -134,4 +148,3 @@ class EM:
 if __name__ == '__main__':
     em = EM('docword.nips.txt')
     em.em_step()
-
