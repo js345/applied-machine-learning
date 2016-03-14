@@ -8,7 +8,7 @@ class EM:
         self.pixels = self.image.load()
         self.width = self.image.size[0]
         self.height = self.image.size[1]
-
+        self.l = None
         data = []
         for i in range(self.image.size[0]):
             for j in range(self.image.size[1]):
@@ -77,24 +77,38 @@ class EM:
             self.mu[j] = numer / denom
             self.pi_s[j] = denom / self.N
 
+    def likelihood(self):
+        l = 0
+
+        for i in range(self.N):
+            for j in range(self.k):
+                A_ij = -1/2 * (self.data[i] - self.mu[j]).dot(self.data[i] - self.mu[j])
+                l += (A_ij + np.log(self.pi_s[j])) * self.w[i,j]
+        return l
+
+
     def em_step(self):
-        self.e_step()
-        self.m_step()
+        while True:
+            self.e_step()
+            self.m_step()
 
-        self.pi_s += 0.0001
-        self.pi_s /= sum(self.pi_s)
+            self.pi_s += 0.0001
+            self.pi_s /= sum(self.pi_s)
 
-        print self.mu
-        print self.pi_s
-        print np.sum(self.pi_s)
+            print self.mu
+            print self.pi_s
+            print np.sum(self.pi_s)
 
+            l = self.likelihood()
+            if self.l is not None:
+                print 'relative difference in likelihood'
+                relative = abs((l - self.l) / self.l)
+                print relative
+                if relative < 1e-5:
+                    break
 
-        self.e_step()
-        self.m_step()
+            self.l = l
 
-        print self.mu
-        print self.pi_s
-        print np.sum(self.pi_s)
 
 if __name__ == '__main__':
     em = EM("test_images/nature.jpg")
