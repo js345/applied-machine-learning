@@ -25,9 +25,10 @@ class EM:
         r_mean = np.mean(self.data[:, 0])
         g_mean = np.mean(self.data[:, 1])
         b_mean = np.mean(self.data[:, 2])
-        self.mu = np.array([[r_mean, g_mean, b_mean] for j in range(self.k)], dtype=np.float128)  # k x 3
+        self.mu = np.array([np.random.randint(255, size=3) for j in range(self.k)], dtype=np.float128)  # k x 3
 
         print(self.mu)
+        print(self.pi_s)
 
     def e_step(self):
         w = np.array([np.zeros(self.k) for i in range(self.N)], dtype=np.float128)
@@ -77,6 +78,17 @@ class EM:
             self.pi_s[j] = denom / self.N
 
     def em_step(self):
+        self.e_step()
+        self.m_step()
+
+        self.pi_s += 0.0001
+        self.pi_s /= sum(self.pi_s)
+
+        print self.mu
+        print self.pi_s
+        print np.sum(self.pi_s)
+
+
         self.e_step()
         self.m_step()
 
