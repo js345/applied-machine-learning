@@ -31,50 +31,31 @@ class EM:
         self.pi_s = self.pi_s /  np.sum(self.pi_s)
         # self.pi_s = np.zeros(30)
         # self.pi_s[0] = 1
-
+        self.l = -999
         self.p_s = np.array([np.random.rand(self.word_num) for j in range(30)], dtype=np.float128)
         for i in range(30):
             sum_ = np.sum(self.p_s[i])
             for j in range(self.word_num):
                 self.p_s[i][j] /= sum_
+        self.R = self.data.dot(np.log10(self.p_s).T)
+        self.log_pi = np.log10(self.pi_s)
 
     def e_step(self):
         # i = range(self.doc_count)
         # j = range(30)
         w = np.array([[0 for j in range(self.topic_num)] for i in range(self.doc_count)], dtype=np.float128)
 
-        '''
-        def product(end, i, j):
-            output = np.float128(1)
-            for k in range(end):
-                output *= (self.p_s[j][k] ** self.data[i][k])
-                if self.p_s[j][k] == 0:
-                    print('fcuk 0')
-                    exit(0)
-            return output
-        for i in range(self.doc_count):
-            sum_ = 0
-            for j in range(self.topic_num):
-                w[i, j] = product(self.word_num, i, j) * self.pi_s[j]
-                print('@ ', product(self.word_num, i, j), self.pi_s[j])
-                print('here ', w[i, j])
-                sum_ += w[i, j]
-            # sum_ = sum(w[i])
-            print(sum_)
-            for j in range(self.topic_num):
-                w[i, j] /= sum_
-            #w[i] /= sum_
-        '''
-
         R = self.data.dot(np.log10(self.p_s).T)
+        self.R = R
         log_pi = np.log10(self.pi_s)
+        self.log_pi = log_pi
 
         for i in range(R.shape[0]):
             sum_ = 0.0
             max_ = 0.0
             for j in range(R.shape[1]):
                 w[i][j] = R[i, j] + log_pi[j]
-                print R[i,j] + log_pi[j]
+                #print R[i,j] + log_pi[j]
 
                 if (w[i][j] < max_):
                     max_ = w[i][j]
@@ -83,26 +64,11 @@ class EM:
                 sum_ += w[i][j]
             for j in range(R.shape[1]):
                 w[i][j] /= (sum_)
-        """for i in range(R.shape[0]):
-            sum_ = 0
-            #log_Amax = -999999.0
-            for j in range(R.shape[1]):
-                w[i, j] = 10 ** (R[i, j] + log_pi[j])
 
-                #if w[i, j] > log_Amax:
-                #    log_Amax = w[i, j]
-
-                sum_ += w[i, j]#10 ** (w[i, j] - log_Amax)
-
-            for j in range(R.shape[1]):
-                w[i, j] = 10** np.log10(w[i, j]) - np.log10(sum_)#w[i, j] = w[i, j] - log_Amax - np.log10(sum_)
-                #w[i, j] = 10 ** w[i, j]"""
-
-        print(np.sum(w, axis = 1))
-        print(np.sum(w.T, axis = 1))
+        #print(np.sum(w, axis = 1))
+        #print(np.sum(w.T, axis = 1))
 
         self.w = w
-        print w
         print('done e_step')
 
     def m_step(self):
@@ -123,27 +89,32 @@ class EM:
             self.pi_s[j] = (np.sum(self.w[:, j])) / self.doc_count
 
         print('done m_step')
-        print(np.sum(self.pi_s))
-        print(np.sum(self.p_s[0]))
+        #print(np.sum(self.pi_s))
+        #print(np.sum(self.p_s[0]))
 
     def em_step(self):
-        self.e_step()
-        self.m_step()
+        while True:
+            self.e_step()
+            self.m_step()
 
-        print(self.p_s)
-        print(self.pi_s)
+            # smooth
+            self.p_s += 0.02
+            for i in range(self.p_s.shape[0]):
+                self.p_s[i] = self.p_s[i] / np.sum(self.p_s[i])
 
-        # smooth
-        self.p_s += 0.02
-        for i in range(self.p_s.shape[0]):
-            self.p_s[i] = self.p_s[i] / np.sum(self.p_s[i])
+            l = self.likelihood()
+            print 'relative difference in likelihood'
+            print (l - self.l) / self.l
+            self.l = l
 
-        self.e_step()
-        self.m_step()
-
-        print(self.p_s)
-        print(self.pi_s)
-
+    def likelihood(self):
+        l = 0
+        for i in range(self.doc_count):
+            inner_sum = 0
+            for j in range(30):
+                inner_sum += (self.R[i][j] + self.log_pi[j]) * self.w[i][j]
+            l += inner_sum
+        return l
 
 if __name__ == '__main__':
     em = EM('docword.nips.txt')
