@@ -5,26 +5,33 @@ class EM:
     def __init__(self, file_name): #'./docword.nips.txt'
         f = open(file_name, 'r')
         lines = f.readlines()
+        f.close()
 
         self.doc_count = int(lines[0]) # N
         self.word_num = int(lines[1])
         self.total_word_count = int(lines[2])
         self.topic_num = 30
 
+        output = [[0 for j in range(self.word_num)] for i in range(self.doc_count)]
+
         i = 3
-        output = [[0]*self.word_num for i in range(self.doc_count)]
         while i < len(lines):
-            line = lines[i].strip().split(' ')
+            line = lines[i].split(' ')
             doc_id = int(line[0])
             word_id = int(line[1])
             word_count = int(line[2])
             output[doc_id-1][word_id-1] = word_count
             i += 1
 
+        #print(output[0])
+
         self.data = np.array(output, dtype=np.float128)
 
         self.pi_s = np.random.rand(self.topic_num) #np.array([1/30 for i in range(self.topic_num)], dtype=np.float128)
         self.pi_s = self.pi_s /  np.sum(self.pi_s)
+        # self.pi_s = np.zeros(30)
+        # self.pi_s[0] = 1
+
         self.p_s = np.array([[1/self.word_num for i in range(self.word_num)] for j in range(30)], dtype=np.float128)
 
     def e_step(self):
@@ -76,7 +83,9 @@ class EM:
             for j in range(R.shape[1]):
                 w[i, j] = w[i, j] - log_Amax - np.log10(sum_)
                 w[i, j] = 10 ** w[i, j]
-        # print(w)
+
+        print(np.sum(w, axis = 1))
+        print(np.sum(w.T, axis = 1))
 
         self.w = w
 
@@ -87,16 +96,17 @@ class EM:
             numer = 0
             denom = 0
 
-            self.pi_s[j] = 0
+            #self.pi_s[j] = 0
             for i in range(self.doc_count):
                 numer += (self.data[i] * self.w[i, j])
                 denom += (np.sum(self.data[i]) * self.w[i, j])
 
-                self.pi_s[j] += self.w[i, j]
+                # self.pi_s[j] += self.w[i, j]
 
             self.p_s[j] = numer / denom
-            self.pi_s[j] = self.pi_s[j] / self.doc_count
-            # self.pi_s[j] = (np.sum(self.w[:, j])) / self.doc_count
+
+            # self.pi_s[j] = self.pi_s[j] / self.doc_count
+            self.pi_s[j] = (np.sum(self.w[:, j])) / self.doc_count
 
         print('done m_step')
         print(np.sum(self.pi_s))
