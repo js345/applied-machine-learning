@@ -1,5 +1,6 @@
 from __future__ import division
 import numpy as np
+import matplotlib.pyplot as plt
 
 class EM:
     def __init__(self, file_name): #'./docword.nips.txt'
@@ -125,3 +126,15 @@ class EM:
 if __name__ == '__main__':
     em = EM('docword.nips.txt')
     em.em_step()
+    plt.plot(em.pi_s)
+    plt.title('Probability with which the topic is selected')
+    plt.show()
+    vocabs = np.loadtxt('vocab.nips.txt',dtype=str)
+    for i in range(30):
+        sorted_index = np.argsort(em.p_s[i])
+        print "topic " + str(i)
+        words = ""
+        ps = ""
+        for index in sorted_index[-10:]:
+            print vocabs[index] + " : " + str(em.p_s[i][index]) + ", ",
+        print "\n"
