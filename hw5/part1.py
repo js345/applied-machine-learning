@@ -31,7 +31,7 @@ class EM:
         self.pi_s = self.pi_s /  np.sum(self.pi_s)
         # self.pi_s = np.zeros(30)
         # self.pi_s[0] = 1
-        self.l = -999
+        self.l = None
         self.p_s = np.array([np.random.rand(self.word_num) for j in range(30)], dtype=np.float128)
         for i in range(30):
             sum_ = np.sum(self.p_s[i])
@@ -104,12 +104,14 @@ class EM:
                 self.p_s[i] = self.p_s[i] / np.sum(self.p_s[i])
 
             l = self.likelihood()
-            print 'relative difference in likelihood'
-            relative = abs((l - self.l) / self.l)
-            print relative
+            if self.l is not None:
+                print 'relative difference in likelihood'
+                relative = abs((l - self.l) / self.l)
+                print relative
+                if relative < 1e-6:
+                    break
             self.l = l
-            if relative < 1e-6:
-                break
+
 
     def likelihood(self):
         l = 0
