@@ -9,6 +9,7 @@ hw4/.idea/*
 hw5/.idea
 hw5/.ipynb_checkpoints/*
 hw5/tags
+hw5/*.jpg
 *.pyc
 *.xml
 .idea/*

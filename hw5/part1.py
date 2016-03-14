@@ -109,7 +109,7 @@ class EM:
                 print 'relative difference in likelihood'
                 relative = abs((l - self.l) / self.l)
                 print relative
-                if relative < 1e-6:
+                if relative < 1e-8:
                     break
             self.l = l
 
