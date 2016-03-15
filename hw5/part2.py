@@ -1,9 +1,10 @@
 from __future__ import division
 from PIL import Image
 import numpy as np
+from matplotlib import pyplot as plt
 
 class EM:
-    def __init__(self, file_name):
+    def __init__(self, file_name, K):
         self.image = Image.open(file_name)
         self.pixels = self.image.load()
         self.width = self.image.size[0]
@@ -17,7 +18,7 @@ class EM:
         self.data = np.array(data, dtype=np.float128) # M
         self.N = len(self.data)
 
-        self.k = 10  # num of clusters
+        self.k = K  # num of clusters
 
         self.pi_s = np.random.rand(self.k)
         self.pi_s = self.pi_s /  np.sum(self.pi_s)
@@ -88,16 +89,17 @@ class EM:
 
 
     def em_step(self):
-        while True:
+        index = 0
+        while index < 10:
             self.e_step()
             self.m_step()
 
             self.pi_s += 0.0001
             self.pi_s /= sum(self.pi_s)
 
-            print self.mu
-            print self.pi_s
-            print np.sum(self.pi_s)
+           # print self.mu
+           # print self.pi_s
+           # print np.sum(self.pi_s)
 
             l = self.likelihood()
             if self.l is not None:
@@ -108,9 +110,36 @@ class EM:
                     break
 
             self.l = l
+            index += 1
+
+def distance(A, B):
+    sum = (A[0]- B[0])**2 + (A[1]-B[1])**2 + (A[2]- B[2])**2
+    return sum
+
 
 
 if __name__ == '__main__':
-    em = EM("test_images/nature.jpg")
+    K = 20
+    em = EM("test_images/nature.jpg", K)
     em.em_step()
+    print em.mu
+
+    for i in range(em.image.size[0]):
+        for j in range(em.image.size[1]):
+            pixel = em.data[i*em.image.size[1] + j]
+            mindis = 9999999999999999
+            index = 0
+            for k in range(K):
+                dis = distance(pixel,em.mu[k])
+
+                if (dis < mindis):
+                    mindis = dis
+                    index = k
+                    pixel = em.mu[k]
+            #print em.pixels[i,j]
+            pixel = pixel.astype(int)
+            em.pixels[i,j] = tuple( pixel)
+
+plt.imshow(em.image)
+plt.show()
 
