@@ -77,6 +77,7 @@ class TopicModelEM:
                 denom += np.sum(self.X[i]) * self.w[i][j]
                 wsum += self.w[i][j]
             self.p_s[j] = nom / denom
+            # smoothing probability of words
             self.p_s[j] += 0.00001
             self.p_s[j] /= np.sum(self.p_s[j])
             # update pis
@@ -103,7 +104,7 @@ class TopicModelEM:
         return l
 
     def em(self):
-        for i in range(15):
+        for i in range(10):
             self.e_step()
             self.m_step()
             l = self.likelihood()
@@ -111,7 +112,7 @@ class TopicModelEM:
                 print 'relative difference in likelihood'
                 relative = abs((l - self.l) / self.l)
                 print relative
-                if relative < 1e-8:
+                if relative < 1e-4:
                     break
             self.l = l
 
