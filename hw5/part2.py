@@ -87,3 +87,4 @@ class EM:
 if __name__ == '__main__':
     em = EM("test_images/nature.jpg")
     em.em_step()
+
