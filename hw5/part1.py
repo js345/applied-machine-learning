@@ -99,7 +99,6 @@ class EM:
             self.m_step()
 
             # smooth
-
             self.p_s += 0.02
             for i in range(self.p_s.shape[0]):
                 self.p_s[i] = self.p_s[i] / np.sum(self.p_s[i])

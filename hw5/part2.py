@@ -8,7 +8,7 @@ class EM:
         self.pixels = self.image.load()
         self.width = self.image.size[0]
         self.height = self.image.size[1]
-
+        self.l = None
         data = []
         for i in range(self.image.size[0]):
             for j in range(self.image.size[1]):
@@ -25,9 +25,10 @@ class EM:
         r_mean = np.mean(self.data[:, 0])
         g_mean = np.mean(self.data[:, 1])
         b_mean = np.mean(self.data[:, 2])
-        self.mu = np.array([[r_mean, g_mean, b_mean] for j in range(self.k)], dtype=np.float128)  # k x 3
+        self.mu = np.array([np.random.randint(255, size=3) for j in range(self.k)], dtype=np.float128)  # k x 3
 
         print(self.mu)
+        print(self.pi_s)
 
     def e_step(self):
         w = np.array([np.zeros(self.k) for i in range(self.N)], dtype=np.float128)
@@ -76,13 +77,38 @@ class EM:
             self.mu[j] = numer / denom
             self.pi_s[j] = denom / self.N
 
-    def em_step(self):
-        self.e_step()
-        self.m_step()
+    def likelihood(self):
+        l = 0
 
-        print self.mu
-        print self.pi_s
-        print np.sum(self.pi_s)
+        for i in range(self.N):
+            for j in range(self.k):
+                A_ij = -1/2 * (self.data[i] - self.mu[j]).dot(self.data[i] - self.mu[j])
+                l += (A_ij + np.log(self.pi_s[j])) * self.w[i,j]
+        return l
+
+
+    def em_step(self):
+        while True:
+            self.e_step()
+            self.m_step()
+
+            self.pi_s += 0.0001
+            self.pi_s /= sum(self.pi_s)
+
+            print self.mu
+            print self.pi_s
+            print np.sum(self.pi_s)
+
+            l = self.likelihood()
+            if self.l is not None:
+                print 'relative difference in likelihood'
+                relative = abs((l - self.l) / self.l)
+                print relative
+                if relative < 1e-5:
+                    break
+
+            self.l = l
+
 
 if __name__ == '__main__':
     em = EM("test_images/nature.jpg")
