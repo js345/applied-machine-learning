@@ -24,16 +24,16 @@ class GaussianEM:
         for i in range(self.image.size[0]):
             for j in range(self.image.size[1]):
                 data.append(self.pixels[i,j])
-        self.X = np.array(data)
+        self.X = np.array(data,dtype=float)
         # normalize data from 0 to 255 to 0 to 10
-        self.X /= 25.5
+        self.X /= 255
         self.dim = len(data[0])
         # init cluster num
         self.segment_num = segment_num
         # init pi vector with len segment_num
         self.pi_s = np.random.dirichlet(np.ones(self.segment_num))
         # init mu matrix with segment_num rows dim columns
-        self.mu = np.random.uniform(0,10,(self.segment_num,self.dim))
+        self.mu = np.random.uniform(0,1,(self.segment_num,self.dim))
 
     def e_step(self):
         # init soft ws, pixel_num rows segment_num columns
@@ -43,7 +43,7 @@ class GaussianEM:
         for i in range(self.pixel_num):
             for j in range(self.segment_num):
                 residual = self.X[i] - self.mu[j]
-                self.x_mu[i][j] = np.exp(residual.dot(residual)*(-1/2)) * self.pi_s[j]
+                self.x_mu[i][j] = np.exp(residual.dot(residual)*(-255/2)) * self.pi_s[j]
         for i in range(self.pixel_num):
             for j in range(self.segment_num):
                 self.w[i][j] = self.x_mu[i][j] / np.sum(self.x_mu[i])
@@ -102,13 +102,13 @@ class GaussianEM:
         for i in range(self.width):
             for j in range(self.height):
                 index = i * self.height + j
-                pixel = self.mu[self.cluster[index]] * 25.5
+                pixel = self.mu[self.cluster[index]] * 255
                 self.pixels[i,j] = tuple(pixel.astype(int))
         plt.imshow(self.image)
         plt.show()
 
 if __name__ == '__main__':
-    em = GaussianEM("test_images/balloons.jpg",50)
+    em = GaussianEM("test_images/balloons.jpg",20)
     em.em()
     em.nearest()
     em.output()
