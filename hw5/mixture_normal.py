@@ -78,7 +78,7 @@ class GaussianEM:
         return l
 
     def em(self):
-        for i in range(20):
+        for i in range(15):
             self.e_step()
             self.m_step()
             l = self.likelihood()
@@ -86,7 +86,7 @@ class GaussianEM:
                 print 'relative difference in likelihood'
                 relative = abs((l - self.l) / self.l)
                 print relative
-                if relative < 1e-6:
+                if relative < 1e-4:
                     break
             self.l = l
 
