@@ -124,10 +124,10 @@ if __name__ == '__main__':
     plt.show()
     vocabs = np.loadtxt('vocab.nips.txt',dtype=str)
     for i in range(30):
-        sorted_index = np.argsort(em.p_s[i])
+        sorted_index = np.argsort(em.p_s[i])[::-1]
         print "topic " + str(i)
         words = ""
         ps = ""
-        for index in sorted_index[-10:]:
+        for index in sorted_index[:10]:
             print vocabs[index] + " : " + str(em.p_s[i][index]) + ", ",
         print "\n"
