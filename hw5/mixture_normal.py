@@ -24,7 +24,7 @@ class GaussianEM:
         for i in range(self.image.size[0]):
             for j in range(self.image.size[1]):
                 data.append(self.pixels[i,j])
-        self.X = np.array(data,dtype=np.float128)
+        self.X = np.array(data)
         # normalize data from 0 to 255 to 0 to 10
         self.X /= 25.5
         self.dim = len(data[0])
@@ -78,7 +78,7 @@ class GaussianEM:
         return l
 
     def em(self):
-        for i in range(5):
+        for i in range(20):
             self.e_step()
             self.m_step()
             l = self.likelihood()
@@ -108,7 +108,7 @@ class GaussianEM:
         plt.show()
 
 if __name__ == '__main__':
-    em = GaussianEM("test_images/balloons.jpg",10)
+    em = GaussianEM("test_images/balloons.jpg",50)
     em.em()
     em.nearest()
     em.output()

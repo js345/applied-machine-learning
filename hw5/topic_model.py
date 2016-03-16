@@ -37,7 +37,7 @@ class TopicModelEM:
             word_id = int(line[1])
             word_count = int(line[2])
             output[doc_id-1][word_id-1] = word_count
-        self.X = np.array(output, dtype=np.float128)
+        self.X = np.array(output)
         # init pi vector of len topic_num
         self.pi_s = np.random.dirichlet(np.ones(self.topic_num))
         # init p_s matrix of topic_num rows and word_num columns
