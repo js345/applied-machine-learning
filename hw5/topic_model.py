@@ -104,7 +104,7 @@ class TopicModelEM:
         return l
 
     def em(self):
-        for i in range(10):
+        for i in range(20):
             self.e_step()
             self.m_step()
             l = self.likelihood()
