@@ -70,7 +70,7 @@ class GaussianEM:
         for i in range(self.pixel_num):
             for j in range(self.segment_num):
                 residual = self.X[i] - self.mu[j]
-                x_mu[i][j] = residual.dot(residual)*(-1/2) * np.log(self.pi_s[j])
+                x_mu[i][j] = residual.dot(residual)*(-255/2) * np.log(self.pi_s[j])
         l = 0.0
         for i in range(self.pixel_num):
             for j in range(self.segment_num):
@@ -108,7 +108,7 @@ class GaussianEM:
         plt.show()
 
 if __name__ == '__main__':
-    em = GaussianEM("test_images/balloons.jpg",20)
+    em = GaussianEM("test_images/ocean.jpg",50)
     em.em()
     em.nearest()
     em.output()
