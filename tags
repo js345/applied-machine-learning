@@ -1,0 +1,366 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	hw2/svm.py	/^    A = np.zeros(len(testX[0]))$/;"	v
+AdaBoostClassifier	hw3/sgd.py	/^from sklearn.ensemble import AdaBoostClassifier$/;"	i
+Axes3D	hw3/plot.py	/^from mpl_toolkits.mplot3d import Axes3D$/;"	i
+Axes3D	hw4/p3.7.py	/^from mpl_toolkits.mplot3d import Axes3D$/;"	i
+B	hw2/svm.py	/^    B = 0$/;"	v
+EM	hw5/part1.py	/^class EM:$/;"	c
+EM	hw5/part2.py	/^class EM:$/;"	c
+GaussianEM	hw5/mixture_normal.py	/^class GaussianEM:$/;"	c
+Image	hw5/mixture_normal.py	/^from PIL import Image$/;"	i
+Image	hw5/part2.py	/^from PIL import Image$/;"	i
+K	hw5/part2.py	/^    K = 20$/;"	v
+KMeans	hw3/clustering.py	/^from sklearn.cluster import KMeans$/;"	i
+NuSVC	hw3/sgd.py	/^from sklearn.svm import NuSVC$/;"	i
+PCA	hw3/dataWriter.py	/^from sklearn.decomposition import PCA$/;"	i
+PCA	hw3/plot.py	/^from sklearn.decomposition import PCA$/;"	i
+PCA	hw4/p3.4.py	/^from sklearn.decomposition import PCA$/;"	i
+PCA	hw4/p3.5.py	/^from sklearn.decomposition import PCA$/;"	i
+PCA	hw4/p3.7.py	/^from sklearn.decomposition import PCA$/;"	i
+PLS	hw4/p3.4.py	/^from sklearn.cross_decomposition import PLSRegression as PLS$/;"	i
+PLS	hw4/p3.5.py	/^from sklearn.cross_decomposition import PLSRegression as PLS$/;"	i
+PLS	hw4/p3.7.py	/^from sklearn.cross_decomposition import PLSRegression as PLS$/;"	i
+PLS1	hw4/p3.4.py	/^PLS1 = PLS(n_components=2)$/;"	v
+PLS1	hw4/p3.7.py	/^PLS1 = PLS(n_components=3)$/;"	v
+PLS2	hw4/p3.4.py	/^PLS2 = PLS(n_components=2)$/;"	v
+RandomForestClassifier	hw3/dataWriter.py	/^from sklearn.ensemble import RandomForestClassifier$/;"	i
+RandomForestClassifier	hw3/randomForests.py	/^from sklearn.ensemble import RandomForestClassifier$/;"	i
+TopicModelEM	hw5/topic_model.py	/^class TopicModelEM:$/;"	c
+X	hw3/plot.py	/^X = pca.transform(trainF)$/;"	v
+X	hw4/p3.4.py	/^X = df.as_matrix()[:, :4]$/;"	v
+X0	hw3/plot.py	/^X0 = X[label0]$/;"	v
+X1	hw3/plot.py	/^X1 = X[label1]$/;"	v
+X_r	hw4/p3.4.py	/^X_r = pca.fit(X).transform(X)$/;"	v
+X_r	hw4/p3.5.py	/^X_r = pca.fit(x).transform(x)$/;"	v
+X_r	hw4/p3.7.py	/^X_r = pca.fit(x).transform(x)$/;"	v
+X_r	hw4/p3.7.py	/^X_r = result[0]$/;"	v
+Y	hw4/p3.5.py	/^Y = df[:,0]$/;"	v
+__author__	hw4/p3.5.py	/^__author__ = 'weixin1'$/;"	v
+__init__	hw3/final.py	/^    def __init__(self,trainX,trainY):$/;"	m	class:finalClassifier
+__init__	hw5/mixture_normal.py	/^    def __init__(self,file_name,segment_num=10):$/;"	m	class:GaussianEM
+__init__	hw5/part1.py	/^    def __init__(self, file_name): #'.\/docword.nips.txt'$/;"	m	class:EM
+__init__	hw5/part2.py	/^    def __init__(self, file_name, K):$/;"	m	class:EM
+__init__	hw5/topic_model.py	/^    def __init__(self, filename):$/;"	m	class:TopicModelEM
+a	hw2/svm.py	/^a = 0.01$/;"	v
+acc	hw3/clustering.py	/^    acc = calculateAccuracy(labels,result)$/;"	v
+accuracy	hw2/svm.py	/^    accuracy = calculateAccuracy(validationX, validationY, A, B)$/;"	v
+accuracy	hw3/knn.py	/^        accuracy = approxKNN(i)$/;"	v
+accuracy	hw3/linearSVM.py	/^        accuracy = testModel(i,model)$/;"	v
+accuracy	hw3/naiveBayes.py	/^        accuracy = testModel(i,model)$/;"	v
+accuracy	hw3/randomForests.py	/^        accuracy = testModel(i,model)$/;"	v
+accuracy	hw3/svm.py	/^        accuracy = testModel(i,model,mean,std)$/;"	v
+accuracyHolder	hw2/svm.py	/^    accuracyHolder = list()$/;"	v
+answer	hw3/final.py	/^    answer = mySVM.predict(testX)$/;"	v	class:finalClassifier
+answer	hw3/final.py	/^    answer = mySVM.predict(trainX)$/;"	v	class:finalClassifier
+applyLinearSVM	hw3/linearSVM.py	/^def applyLinearSVM():$/;"	f
+applyNB	hw3/naiveBayes.py	/^def applyNB():$/;"	f
+applyRandomForest	hw3/randomForests.py	/^def applyRandomForest():$/;"	f
+applySVM	hw3/svm.py	/^def applySVM():$/;"	f
+approxKNN	hw3/knn.py	/^def approxKNN(number):$/;"	f
+ax	hw3/plot.py	/^ax = fig.add_subplot(111, projection='3d')$/;"	v
+ax	hw4/p3.7.py	/^ax = fig.add_subplot(111, projection='3d')$/;"	v
+b	hw2/svm.py	/^b = 50$/;"	v
+bestA	hw2/svm.py	/^        bestA = A$/;"	v
+bestA	hw2/svm.py	/^bestA = 0$/;"	v
+bestAccuracy	hw2/svm.py	/^        bestAccuracy = accuracy$/;"	v
+bestAccuracy	hw2/svm.py	/^bestAccuracy = 0$/;"	v
+bestB	hw2/svm.py	/^        bestB = B$/;"	v
+bestB	hw2/svm.py	/^bestB = 0$/;"	v
+best_score	hw3/final.py	/^    best_score = 0.79685$/;"	v	class:finalClassifier
+bestlmbda	hw2/svm.py	/^        bestlmbda = lmbda$/;"	v
+bestlmbda	hw2/svm.py	/^bestlmbda = 0$/;"	v
+c	hw4/p3.7.py	/^c = [f(s) for s in y]$/;"	v
+calculateAccuracy	hw2/svm.py	/^def calculateAccuracy(Xs, Ys, A, B):$/;"	f
+calculateAccuracy	hw3/clustering.py	/^def calculateAccuracy(prediction,label):$/;"	f
+calculateAccuracy	hw3/dataWriter.py	/^def calculateAccuracy(prediction,label):$/;"	f
+calculateAccuracy	hw3/final.py	/^    def calculateAccuracy(self,prediction,label):$/;"	m	class:finalClassifier
+calculateAccuracy	hw3/knn.py	/^def calculateAccuracy(prediction,label):$/;"	f
+calculateAccuracy	hw3/linearSVM.py	/^def calculateAccuracy(prediction,label):$/;"	f
+calculateAccuracy	hw3/naiveBayes.py	/^def calculateAccuracy(prediction,label):$/;"	f
+calculateAccuracy	hw3/randomForests.py	/^def calculateAccuracy(prediction,label):$/;"	f
+calculateAccuracy	hw3/svm.py	/^def calculateAccuracy(prediction,label):$/;"	f
+classify	hw3/knn.py	/^def classify(result1,result2,name):$/;"	f
+clustering	hw3/clustering.py	/^def clustering(train,k) :$/;"	f
+colors	hw4/p3.4.py	/^colors = {"Iris-setosa":"red","Iris-versicolor":"blue","Iris-virginica":"green"}$/;"	v
+covr	hw4/p3.5.py	/^covr = np.cov(x.T,bias=1)$/;"	v
+crossV	hw2/svm.py	/^        crossV = train[0:500]$/;"	v
+crossX	hw2/svm.py	/^        crossX = crossV[:,:-1]$/;"	v
+crossY	hw2/svm.py	/^        crossY = crossV[:,-1]$/;"	v
+csv	hw2/svm.py	/^import csv$/;"	i
+csvreader	hw2/svm.py	/^    csvreader = csv.reader(csvfile, delimiter=',', skipinitialspace=True)$/;"	v
+data	hw2/svm.py	/^data = list()$/;"	v
+data	hw2/svm.py	/^data = np.append(feature,label,axis=1)$/;"	v
+data	hw2/svm.py	/^data = np.array(data)$/;"	v
+data	hw4/p3.7.py	/^data = df.as_matrix()$/;"	v
+df	hw4/p3.4.py	/^df = pd.read_csv("iris.data.txt", sep=",", skipinitialspace=True, skiprows=0, header=None)$/;"	v
+df	hw4/p3.5.py	/^df = pd.read_csv("wine.data.txt", sep=",", skipinitialspace=True, skiprows=0, header=None).as_matrix()$/;"	v
+df	hw4/p3.7.py	/^df = pd.read_csv("wdbc.data.txt", sep=",", skipinitialspace=True, skiprows=0, header=None)$/;"	v
+dis	hw5/part2.py	/^                dis = distance(pixel,em.mu[k])$/;"	v
+distance	hw5/part2.py	/^def distance(A, B):$/;"	f
+division	hw2/svm.py	/^from __future__ import division$/;"	i
+division	hw3/clustering.py	/^from __future__ import division$/;"	i
+division	hw3/dataWriter.py	/^from __future__ import division$/;"	i
+division	hw3/final.py	/^from __future__ import division$/;"	i
+division	hw3/knn.py	/^from __future__ import division$/;"	i
+division	hw3/linearSVM.py	/^from __future__ import division$/;"	i
+division	hw3/naiveBayes.py	/^from __future__ import division$/;"	i
+division	hw3/plot.py	/^from __future__ import division$/;"	i
+division	hw3/randomForests.py	/^from __future__ import division$/;"	i
+division	hw3/sgd.py	/^from __future__ import division$/;"	i
+division	hw3/svm.py	/^from __future__ import division$/;"	i
+division	hw5/mixture_normal.py	/^from __future__ import division$/;"	i
+division	hw5/part1.py	/^from __future__ import division$/;"	i
+division	hw5/part2.py	/^from __future__ import division$/;"	i
+division	hw5/topic_model.py	/^from __future__ import division$/;"	i
+e_step	hw5/mixture_normal.py	/^    def e_step(self):$/;"	m	class:GaussianEM
+e_step	hw5/part1.py	/^    def e_step(self):$/;"	m	class:EM
+e_step	hw5/part2.py	/^    def e_step(self):$/;"	m	class:EM
+e_step	hw5/topic_model.py	/^    def e_step(self):$/;"	m	class:TopicModelEM
+eigenv	hw4/p3.5.py	/^    eigenv = w[i]$/;"	v
+em	hw5/mixture_normal.py	/^    def em(self):$/;"	m	class:GaussianEM
+em	hw5/mixture_normal.py	/^    em = GaussianEM("test_images\/ocean.jpg",50)$/;"	v	class:GaussianEM
+em	hw5/part1.py	/^    em = EM('docword.nips.txt')$/;"	v	class:EM
+em	hw5/part2.py	/^    em = EM("test_images\/nature.jpg", K)$/;"	v
+em	hw5/topic_model.py	/^    def em(self):$/;"	m	class:TopicModelEM
+em	hw5/topic_model.py	/^    em = TopicModelEM('docword.nips.txt')$/;"	v	class:TopicModelEM
+em_step	hw5/part1.py	/^    def em_step(self):$/;"	m	class:EM
+em_step	hw5/part2.py	/^    def em_step(self):$/;"	m	class:EM
+epochs	hw2/svm.py	/^epochs = 50$/;"	v
+evalData	hw3/clustering.py	/^    evalData = readEvalData().as_matrix()$/;"	v
+example	hw2/svm.py	/^        example = [float(row[0]),float(row[2]),float(row[4]),float(row[10]),float(row[11]),float(row[12]),row[14]]$/;"	v
+f	hw4/p3.7.py	/^def f(cls):$/;"	f
+feature	hw2/svm.py	/^feature = (feature - mean) \/ std$/;"	v
+feature	hw2/svm.py	/^feature = data[:,:-1]$/;"	v
+featureAdd	hw3/dataWriter.py	/^def featureAdd(m):$/;"	f
+featureAdd	hw3/final.py	/^    def featureAdd(self,row):$/;"	m	class:finalClassifier
+featureAdd	hw3/sgd.py	/^from dataWriter import featureAdd, writePrediction$/;"	i
+featureWeight	hw3/final.py	/^    featureWeight = np.ones(73)$/;"	v	class:finalClassifier
+fig	hw3/plot.py	/^fig = plt.figure()$/;"	v
+fig	hw4/p3.7.py	/^fig = plt.figure()$/;"	v
+finalAccuracy	hw2/svm.py	/^finalAccuracy = calculateAccuracy(testX, testY, bestA, bestB)$/;"	v
+finalClassifier	hw3/final.py	/^class finalClassifier():$/;"	c
+gradientA	hw2/svm.py	/^                gradientA = ((-yPoint)*xPoint) + lmbda * A$/;"	v
+gradientA	hw2/svm.py	/^                gradientA = lmbda * A$/;"	v
+gradientB	hw2/svm.py	/^                gradientB = -yPoint$/;"	v
+gradientB	hw2/svm.py	/^                gradientB = 0$/;"	v
+idx	hw4/p3.5.py	/^idx = w.argsort()[::-1]$/;"	v
+import	hw3/plot.py	/^import numpy as np$/;"	i
+index	hw5/part2.py	/^                    index = k$/;"	v
+index	hw5/part2.py	/^            index = 0$/;"	v
+knn	hw3/dataWriter.py	/^import knn$/;"	i
+knnKaggle	hw3/knn.py	/^def knnKaggle():$/;"	f
+label	hw2/svm.py	/^label = data[:,-1:]$/;"	v
+labels	hw3/clustering.py	/^    labels = predict(evalData, clusters, model)$/;"	v
+likelihood	hw5/mixture_normal.py	/^    def likelihood(self):$/;"	m	class:GaussianEM
+likelihood	hw5/part1.py	/^    def likelihood(self):$/;"	m	class:EM
+likelihood	hw5/part2.py	/^    def likelihood(self):$/;"	m	class:EM
+likelihood	hw5/topic_model.py	/^    def likelihood(self):$/;"	m	class:TopicModelEM
+linearSVM	hw3/dataWriter.py	/^import linearSVM$/;"	i
+linear_model	hw3/sgd.py	/^from sklearn import linear_model$/;"	i
+logsumexp	hw5/topic_model.py	/^def logsumexp(logAi,logAmax):$/;"	f
+m_step	hw5/mixture_normal.py	/^    def m_step(self):$/;"	m	class:GaussianEM
+m_step	hw5/part1.py	/^    def m_step(self):$/;"	m	class:EM
+m_step	hw5/part2.py	/^    def m_step(self):$/;"	m	class:EM
+m_step	hw5/topic_model.py	/^    def m_step(self):$/;"	m	class:TopicModelEM
+matplotlib	hw2/svm.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	hw3/plot.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	hw4/p3.4.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	hw4/p3.5.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	hw4/p3.7.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	hw5/mixture_normal.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	hw5/part1.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	hw5/topic_model.py	/^import matplotlib.pyplot as plt$/;"	i
+mean	hw2/svm.py	/^mean = feature.mean(axis=0)$/;"	v
+mean	hw3/plot.py	/^mean = trainF.mean(axis=0)$/;"	v
+mean	hw3/sgd.py	/^    mean = trainX.mean(axis=0)$/;"	v
+mindis	hw5/part2.py	/^                    mindis = dis$/;"	v
+mindis	hw5/part2.py	/^            mindis = 9999999999999999$/;"	v
+model	hw3/linearSVM.py	/^    model = applyLinearSVM()$/;"	v
+model	hw3/naiveBayes.py	/^    model = applyNB()$/;"	v
+model	hw3/randomForests.py	/^    model = applyRandomForest()$/;"	v
+mySVM	hw3/final.py	/^    mySVM = finalClassifier(trainX,trainY)$/;"	v	class:finalClassifier
+naiveBayes	hw3/dataWriter.py	/^import naiveBayes$/;"	i
+naiveBayes	hw3/sgd.py	/^import naiveBayes$/;"	i
+nb	hw3/naiveBayes.py	/^import sklearn.naive_bayes as nb$/;"	i
+nearest	hw5/mixture_normal.py	/^    def nearest(self):$/;"	m	class:GaussianEM
+np	hw2/svm.py	/^import numpy as np$/;"	i
+np	hw3/clustering.py	/^import numpy as np$/;"	i
+np	hw3/dataWriter.py	/^import numpy as np$/;"	i
+np	hw3/final.py	/^import numpy as np$/;"	i
+np	hw3/knn.py	/^import numpy as np$/;"	i
+np	hw3/plot.py	/^import numpy as np$/;"	i
+np	hw3/sgd.py	/^import numpy as np$/;"	i
+np	hw4/p3.4.py	/^import numpy as np$/;"	i
+np	hw4/p3.5.py	/^import numpy as np$/;"	i
+np	hw4/p3.7.py	/^import numpy as np$/;"	i
+np	hw5/mixture_normal.py	/^import numpy as np$/;"	i
+np	hw5/part1.py	/^import numpy as np$/;"	i
+np	hw5/part2.py	/^import numpy as np$/;"	i
+np	hw5/topic_model.py	/^import numpy as np$/;"	i
+number_map	hw4/p3.4.py	/^number_map = {"Iris-setosa": 0,"Iris-versicolor": 1  ,"Iris-virginica": 2 }$/;"	v
+number_map	hw4/p3.7.py	/^number_map = {"M": 0,"B": 1}$/;"	v
+numeric_y	hw4/p3.7.py	/^numeric_y = np.array(map(lambda x : number_map[x],y))$/;"	v
+one_hot_y	hw4/p3.4.py	/^one_hot_y = np.zeros((len(y),3))$/;"	v
+output	hw5/mixture_normal.py	/^    def output(self):$/;"	m	class:GaussianEM
+p	hw2/svm.py	/^    p = random.random()$/;"	v
+pca	hw3/plot.py	/^pca = PCA(n_components=3)$/;"	v
+pca	hw4/p3.4.py	/^pca = PCA(n_components=2)$/;"	v
+pca	hw4/p3.5.py	/^pca = PCA(n_components=2)$/;"	v
+pca	hw4/p3.7.py	/^pca = PCA(n_components=3)$/;"	v
+pd	hw3/dataLoader.py	/^import pandas as pd$/;"	i
+pd	hw4/p3.4.py	/^import pandas as pd$/;"	i
+pd	hw4/p3.5.py	/^import pandas as pd$/;"	i
+pd	hw4/p3.7.py	/^import pandas as pd$/;"	i
+pixel	hw5/part2.py	/^                    pixel = em.mu[k]$/;"	v
+pixel	hw5/part2.py	/^            pixel = em.data[i*em.image.size[1] + j]$/;"	v
+pixel	hw5/part2.py	/^            pixel = pixel.astype(int)$/;"	v
+plt	hw2/svm.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	hw3/plot.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	hw4/p3.4.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	hw4/p3.5.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	hw4/p3.7.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	hw5/mixture_normal.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	hw5/part1.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	hw5/part2.py	/^from matplotlib import pyplot as plt$/;"	i
+plt	hw5/topic_model.py	/^import matplotlib.pyplot as plt$/;"	i
+predict	hw3/clustering.py	/^def predict(eval, clusters, model) :$/;"	f
+predict	hw3/dataWriter.py	/^def predict():$/;"	f
+predict	hw3/final.py	/^    def predict(self,testX):$/;"	m	class:finalClassifier
+predictLabel	hw2/svm.py	/^            predictLabel = xPoint.dot(A) + B$/;"	v
+prediction	hw3/sgd.py	/^    prediction = sgd(trainX, trainY, testX, testY)$/;"	v
+preprocess	hw3/final.py	/^    def preprocess(self,featureWeight,dotWeight,cosWeight):$/;"	m	class:finalClassifier
+random	hw2/svm.py	/^import random$/;"	i
+randomForests	hw3/dataWriter.py	/^import randomForests$/;"	i
+randomPoint	hw2/svm.py	/^            randomPoint = np.random.randint(0,len(trainY))$/;"	v
+readEvalData	hw3/clustering.py	/^from dataLoader import readTrainingData, readValidationData,readEvalData,readEvalResult$/;"	i
+readEvalData	hw3/dataLoader.py	/^def readEvalData():$/;"	f
+readEvalData	hw3/dataWriter.py	/^from dataLoader import readTrainingData,readEvalData$/;"	i
+readEvalData	hw3/final.py	/^from dataLoader import readTrainingData, readEvalData$/;"	i
+readEvalData	hw3/knn.py	/^from dataLoader import readValidationData, readMatchingData,readEvalData,readTrainingData$/;"	i
+readEvalData	hw3/sgd.py	/^from dataLoader import readTrainingData, readValidationData, readEvalData, readEvalResult$/;"	i
+readEvalResult	hw3/clustering.py	/^from dataLoader import readTrainingData, readValidationData,readEvalData,readEvalResult$/;"	i
+readEvalResult	hw3/sgd.py	/^from dataLoader import readTrainingData, readValidationData, readEvalData, readEvalResult$/;"	i
+readMatchingData	hw3/dataLoader.py	/^def readMatchingData():$/;"	f
+readMatchingData	hw3/knn.py	/^from dataLoader import readValidationData, readMatchingData,readEvalData,readTrainingData$/;"	i
+readTrainingData	hw3/clustering.py	/^from dataLoader import readTrainingData, readValidationData,readEvalData,readEvalResult$/;"	i
+readTrainingData	hw3/dataLoader.py	/^def readTrainingData():$/;"	f
+readTrainingData	hw3/dataWriter.py	/^from dataLoader import readTrainingData,readEvalData$/;"	i
+readTrainingData	hw3/final.py	/^from dataLoader import readTrainingData, readEvalData$/;"	i
+readTrainingData	hw3/knn.py	/^from dataLoader import readValidationData, readMatchingData,readEvalData,readTrainingData$/;"	i
+readTrainingData	hw3/linearSVM.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+readTrainingData	hw3/naiveBayes.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+readTrainingData	hw3/plot.py	/^import numpy as np$/;"	i
+readTrainingData	hw3/randomForests.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+readTrainingData	hw3/sgd.py	/^from dataLoader import readTrainingData, readValidationData, readEvalData, readEvalResult$/;"	i
+readTrainingData	hw3/svm.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+readValidationData	hw3/clustering.py	/^from dataLoader import readTrainingData, readValidationData,readEvalData,readEvalResult$/;"	i
+readValidationData	hw3/dataLoader.py	/^def readValidationData(number):$/;"	f
+readValidationData	hw3/knn.py	/^from dataLoader import readValidationData, readMatchingData,readEvalData,readTrainingData$/;"	i
+readValidationData	hw3/linearSVM.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+readValidationData	hw3/naiveBayes.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+readValidationData	hw3/plot.py	/^import numpy as np$/;"	i
+readValidationData	hw3/randomForests.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+readValidationData	hw3/sgd.py	/^from dataLoader import readTrainingData, readValidationData, readEvalData, readEvalResult$/;"	i
+readValidationData	hw3/svm.py	/^from dataLoader import readTrainingData, readValidationData$/;"	i
+regWeight	hw2/svm.py	/^regWeight = [0.001, 0.01, 0.1, 1]$/;"	v
+result	hw3/clustering.py	/^    result = readEvalResult().as_matrix()[:,1]$/;"	v
+result	hw4/p3.4.py	/^result = PLS1.fit_transform(X,y)$/;"	v
+result	hw4/p3.4.py	/^result = PLS2.fit_transform(X,one_hot_y)$/;"	v
+result	hw4/p3.7.py	/^result = PLS1.fit_transform(x,numeric_y)$/;"	v
+scatter_matrix	hw4/p3.4.py	/^from pandas.tools.plotting import scatter_matrix$/;"	i
+scatter_matrix	hw4/p3.5.py	/^from pandas.tools.plotting import scatter_matrix$/;"	i
+sgd	hw3/sgd.py	/^def sgd(trainX, trainY, testX, testY):$/;"	f
+shapes	hw4/p3.4.py	/^shapes = {"Iris-setosa":"x","Iris-versicolor":"o","Iris-virginica":"^"}$/;"	v
+sklearn	hw3/naiveBayes.py	/^import sklearn.naive_bayes as nb$/;"	i
+smallTrain	hw2/svm.py	/^        smallTrain = train[500:]$/;"	v
+start	hw3/final.py	/^    start = time.time()$/;"	v	class:finalClassifier
+start	hw3/svm.py	/^    start = time.time()$/;"	v
+std	hw2/svm.py	/^std = feature.std(axis=0)$/;"	v
+std	hw3/plot.py	/^std = trainF.std(axis=0)$/;"	v
+std	hw3/sgd.py	/^    std = trainX.std(axis=0)$/;"	v
+stepLength	hw2/svm.py	/^        stepLength = 1.0 \/ (a*i + b)$/;"	v
+steps	hw2/svm.py	/^steps = 300$/;"	v
+string_map	hw4/p3.4.py	/^string_map = {-1.2206555615733703 : "Iris-setosa", 0 : "Iris-versicolor", 1.2206555615733703 : "Iris-virginica"}$/;"	v
+svm	hw2/svm.py	/^from sklearn import svm$/;"	i
+svm	hw3/clustering.py	/^from sklearn import svm$/;"	i
+svm	hw3/dataWriter.py	/^from sklearn import svm$/;"	i
+svm	hw3/final.py	/^from sklearn import svm$/;"	i
+svm	hw3/linearSVM.py	/^from sklearn import svm$/;"	i
+svm	hw3/svm.py	/^from sklearn import svm$/;"	i
+target_names	hw4/p3.4.py	/^target_names = ["Iris-setosa", "Iris-versicolor", "Iris-virginica"]$/;"	v
+target_names	hw4/p3.5.py	/^target_names = [1,2,3]$/;"	v
+target_names	hw4/p3.7.py	/^target_names = ['M','B']$/;"	v
+test	hw4/p3.7.py	/^test = data[100:200]$/;"	v
+testModel	hw3/linearSVM.py	/^def testModel(number,model):$/;"	f
+testModel	hw3/naiveBayes.py	/^def testModel(number,model):$/;"	f
+testModel	hw3/randomForests.py	/^def testModel(number,model):$/;"	f
+testModel	hw3/svm.py	/^def testModel(number,model,mean,std):$/;"	f
+testTrain	hw3/knn.py	/^def testTrain():$/;"	f
+testX	hw2/svm.py	/^testX = list()$/;"	v
+testX	hw2/svm.py	/^testX = np.array(testX)$/;"	v
+testX	hw3/final.py	/^    testX = readEvalData().as_matrix()$/;"	v	class:finalClassifier
+testX	hw3/sgd.py	/^    testX = (testX - mean) \/ std$/;"	v
+testX	hw3/sgd.py	/^    testX = readEvalData().as_matrix()$/;"	v
+testY	hw2/svm.py	/^testY = list()$/;"	v
+testY	hw2/svm.py	/^testY = np.array(testY)$/;"	v
+testY	hw3/sgd.py	/^    testY = readEvalResult().as_matrix()[:,1]$/;"	v
+time	hw3/final.py	/^import time$/;"	i
+time	hw3/svm.py	/^import time$/;"	i
+train	hw2/svm.py	/^train = list()$/;"	v
+train	hw2/svm.py	/^train = np.array(train)$/;"	v
+train	hw3/clustering.py	/^    train = readTrainingData().as_matrix()$/;"	v
+train	hw3/final.py	/^    def train(self):$/;"	m	class:finalClassifier
+train	hw3/final.py	/^    train = readTrainingData().as_matrix()$/;"	v	class:finalClassifier
+train	hw3/plot.py	/^train = readTrainingData().as_matrix()$/;"	v
+train	hw3/plot.py	/^train = train[:5000]$/;"	v
+train	hw3/sgd.py	/^    train = readTrainingData().as_matrix()$/;"	v
+train	hw4/p3.7.py	/^train = data[200:]$/;"	v
+trainF	hw3/plot.py	/^trainF = np.absolute(trainF[:,:73] - trainF[:,73:])$/;"	v
+trainF	hw3/plot.py	/^trainF = train[:,1:]$/;"	v
+trainLabel	hw3/plot.py	/^trainLabel = train[:,0]$/;"	v
+trainX	hw2/svm.py	/^        trainX = smallTrain[:, :-1]$/;"	v
+trainX	hw3/final.py	/^    trainX = train[:,1:]$/;"	v	class:finalClassifier
+trainX	hw3/plot.py	/^trainX = (trainF - mean) \/ std$/;"	v
+trainX	hw3/plot.py	/^trainX = train[:,1]$/;"	v
+trainX	hw3/sgd.py	/^    trainX = (trainX - mean) \/ std$/;"	v
+trainX	hw3/sgd.py	/^    trainX = train[:,1:]$/;"	v
+trainX0	hw3/plot.py	/^trainX0 = trainX[label0]$/;"	v
+trainX1	hw3/plot.py	/^trainX1 = trainX[label1]$/;"	v
+trainY	hw2/svm.py	/^        trainY = smallTrain[:, -1]$/;"	v
+trainY	hw3/final.py	/^    trainY = train[:,0]$/;"	v	class:finalClassifier
+trainY	hw3/plot.py	/^trainY = train[:,2]$/;"	v
+trainY	hw3/sgd.py	/^    trainY = train[:,0]$/;"	v
+trainY0	hw3/plot.py	/^trainY0 = trainY[label0]$/;"	v
+trainY1	hw3/plot.py	/^trainY1 = trainY[label1]$/;"	v
+trainZ	hw3/plot.py	/^trainZ = train[:,3]$/;"	v
+trainZ0	hw3/plot.py	/^trainZ0 = trainZ[label0]$/;"	v
+trainZ1	hw3/plot.py	/^trainZ1 = trainZ[label1]$/;"	v
+v	hw4/p3.5.py	/^v = v[:,idx]$/;"	v
+validation	hw4/p3.7.py	/^validation = data[:100]$/;"	v
+validationX	hw2/svm.py	/^validationX = list()$/;"	v
+validationX	hw2/svm.py	/^validationX = np.array(validationX)$/;"	v
+validationY	hw2/svm.py	/^validationY = list()$/;"	v
+validationY	hw2/svm.py	/^validationY = np.array(validationY)$/;"	v
+vocabs	hw5/part1.py	/^    vocabs = np.loadtxt('vocab.nips.txt',dtype=str)$/;"	v	class:EM
+vocabs	hw5/topic_model.py	/^    vocabs = np.loadtxt('vocab.nips.txt',dtype=str)$/;"	v	class:TopicModelEM
+w	hw4/p3.5.py	/^w = w[idx]$/;"	v
+warnings	hw3/clustering.py	/^import warnings$/;"	i
+writePrediction	hw3/clustering.py	/^from dataWriter import writePrediction$/;"	i
+writePrediction	hw3/dataWriter.py	/^def writePrediction(prediction):$/;"	f
+writePrediction	hw3/final.py	/^from dataWriter import writePrediction$/;"	i
+writePrediction	hw3/sgd.py	/^from dataWriter import featureAdd, writePrediction$/;"	i
+x	hw4/p3.5.py	/^    x = np.arange(len(y))$/;"	v
+x	hw4/p3.5.py	/^x = df[:,1:]$/;"	v
+x	hw4/p3.7.py	/^x = data[:,2:]$/;"	v
+xPoint	hw2/svm.py	/^            xPoint = trainX[randomPoint]$/;"	v
+y	hw4/p3.4.py	/^y = df.as_matrix()[:,4]$/;"	v
+y	hw4/p3.4.py	/^y = np.array(map(lambda x : number_map[x],df.as_matrix()[:, 4]))$/;"	v
+y	hw4/p3.4.py	/^y = np.array(map(lambda x : string_map[x],result[1]))$/;"	v
+y	hw4/p3.5.py	/^    y = v[:,i]$/;"	v
+y	hw4/p3.7.py	/^y = data[:,1]$/;"	v
+yPoint	hw2/svm.py	/^            yPoint = trainY[randomPoint]$/;"	v
