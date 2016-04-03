@@ -30,15 +30,44 @@ plot(elasticnet1)
 plot(elasticnet2)
 plot(elasticnet3)
 # Test regression models after finding best regularization constant for each
-betahatols<-coef(ols)
-yhatols<-cbind(rep(1, n - length(train)), xTest) %*% betahatols
 yhatlasso<-predict(lasso, xTest, s=lassolambda)
 yhatridge<-predict(ridge, xTest, s=ridgelambda)
 yhatelastic1<-predict(elasticnet1, xTest, s=elasticnet1lambda)
 yhatelastic2<-predict(elasticnet2, xTest, s=elasticnet2lambda)
 yhatelastic3<-predict(elasticnet3, xTest, s=elasticnet3lambda)
 # Compare MSE on test data
-sum((yTest - yhatols)^2) / nrow(xTest)
+sum((yTest - yhatlasso)^2) / nrow(xTest)
+sum((yTest - yhatridge)^2) / nrow(xTest)
+sum((yTest - yhatelastic1)^2) / nrow(xTest)
+sum((yTest - yhatelastic2)^2) / nrow(xTest)
+sum((yTest - yhatelastic3)^2) / nrow(xTest)
+# x vs longitude
+y<-longitude
+yTrain<-y[train]
+yTest<-y[-train]
+ols<-lm(yTrain ~ xTrain)
+ridge<-cv.glmnet(xTrain,yTrain,alpha=0)
+lasso<-cv.glmnet(xTrain,yTrain,alpha=1)
+elasticnet1<-cv.glmnet(xTrain, yTrain, alpha=0.3)
+elasticnet2<-cv.glmnet(xTrain, yTrain, alpha=0.5)
+elasticnet3<-cv.glmnet(xTrain, yTrain, alpha=0.7)
+ridgelambda<-ridge$lambda.min
+lassolambda<-lasso$lambda.min
+elasticnet1lambda<-elasticnet1$lambda.min
+elasticnet2lambda<-elasticnet2$lambda.min
+elasticnet3lambda<-elasticnet3$lambda.min
+plot(ridge)
+plot(lasso)
+plot(elasticnet1)
+plot(elasticnet2)
+plot(elasticnet3)
+# Test regression models after finding best regularization constant for each
+yhatlasso<-predict(lasso, xTest, s=lassolambda)
+yhatridge<-predict(ridge, xTest, s=ridgelambda)
+yhatelastic1<-predict(elasticnet1, xTest, s=elasticnet1lambda)
+yhatelastic2<-predict(elasticnet2, xTest, s=elasticnet2lambda)
+yhatelastic3<-predict(elasticnet3, xTest, s=elasticnet3lambda)
+# Compare MSE on test data
 sum((yTest - yhatlasso)^2) / nrow(xTest)
 sum((yTest - yhatridge)^2) / nrow(xTest)
 sum((yTest - yhatelastic1)^2) / nrow(xTest)
