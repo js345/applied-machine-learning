@@ -24,11 +24,11 @@ lassolambda<-lasso$lambda.min
 elasticnet1lambda<-elasticnet1$lambda.min
 elasticnet2lambda<-elasticnet2$lambda.min
 elasticnet3lambda<-elasticnet3$lambda.min
-plot(ridge)
-plot(lasso)
-plot(elasticnet1)
-plot(elasticnet2)
-plot(elasticnet3)
+plot(ridge, main="ridge regression vs laitude")
+plot(lasso, main="lasso regression vs laitude")
+plot(elasticnet1, main="elastic regression vs laitude (alpha=0.3)")
+plot(elasticnet2, main="elastic regression vs laitude (alpha=0.5)")
+plot(elasticnet3, main="elastic regression vs laitude (alpha=0.7)")
 # Test regression models after finding best regularization constant for each
 yhatlasso<-predict(lasso, xTest, s=lassolambda)
 yhatridge<-predict(ridge, xTest, s=ridgelambda)
@@ -41,6 +41,7 @@ sum((yTest - yhatridge)^2) / nrow(xTest)
 sum((yTest - yhatelastic1)^2) / nrow(xTest)
 sum((yTest - yhatelastic2)^2) / nrow(xTest)
 sum((yTest - yhatelastic3)^2) / nrow(xTest)
+
 # x vs longitude
 y<-longitude
 yTrain<-y[train]
@@ -56,11 +57,11 @@ lassolambda<-lasso$lambda.min
 elasticnet1lambda<-elasticnet1$lambda.min
 elasticnet2lambda<-elasticnet2$lambda.min
 elasticnet3lambda<-elasticnet3$lambda.min
-plot(ridge)
-plot(lasso)
-plot(elasticnet1)
-plot(elasticnet2)
-plot(elasticnet3)
+plot(ridge, main="ridge regression vs longitude")
+plot(lasso, main="lasso regression vs longitude")
+plot(elasticnet1, main="elastic regression vs longitude (alpha=0.3)")
+plot(elasticnet2, main="elastic regression vs longitude (alpha=0.5)")
+plot(elasticnet3, main="elastic regression vs longitude (alpha=0.7)")
 # Test regression models after finding best regularization constant for each
 yhatlasso<-predict(lasso, xTest, s=lassolambda)
 yhatridge<-predict(ridge, xTest, s=ridgelambda)
