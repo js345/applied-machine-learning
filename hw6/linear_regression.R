@@ -1,6 +1,6 @@
 library(glmnet)
 efd<-as.matrix(read.table('./Geographical Original of Music/default_plus_chromatic_features_1059_tracks.txt',sep=",",header=FALSE))
-x<-efd[,-(1:2)]
+x<-efd[,-c(ncol(efd)-1,ncol(efd))]
 latitude<-efd[,ncol(efd)-1]
 longitude<-efd[,ncol(efd)]
 # train test split
