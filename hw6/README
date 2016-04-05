@@ -1,0 +1,13 @@
+Dependecies
+R: glmnet
+Python: sklearn, numpy, scipy
+
+Question 1.
+To run linear regression plot and R squared
+python linear_regression.py
+
+To run cross validated regularized regression
+Load folder in R studio and run linear_regression.R
+
+Question 2.
+Run logistic_regression.R in Rstudio
