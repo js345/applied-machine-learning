@@ -24,6 +24,11 @@ lassolambda<-lasso$lambda.min
 elasticnet1lambda<-elasticnet1$lambda.min
 elasticnet2lambda<-elasticnet2$lambda.min
 elasticnet3lambda<-elasticnet3$lambda.min
+ridgelambda
+lassolambda
+elasticnet1lambda
+elasticnet2lambda
+elasticnet3lambda
 plot(ridge, main="ridge regression vs laitude")
 plot(lasso, main="lasso regression vs laitude")
 plot(elasticnet1, main="elastic regression vs laitude (alpha=0.3)")
@@ -57,6 +62,11 @@ lassolambda<-lasso$lambda.min
 elasticnet1lambda<-elasticnet1$lambda.min
 elasticnet2lambda<-elasticnet2$lambda.min
 elasticnet3lambda<-elasticnet3$lambda.min
+ridgelambda
+lassolambda
+elasticnet1lambda
+elasticnet2lambda
+elasticnet3lambda
 plot(ridge, main="ridge regression vs longitude")
 plot(lasso, main="lasso regression vs longitude")
 plot(elasticnet1, main="elastic regression vs longitude (alpha=0.3)")

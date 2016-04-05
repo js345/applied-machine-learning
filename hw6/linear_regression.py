@@ -4,6 +4,7 @@ from scipy import stats
 from scipy.special import boxcox, inv_boxcox
 import numpy as np
 import matplotlib.pyplot as plt
+
 data = np.loadtxt("./Geographical Original of Music/default_plus_chromatic_features_1059_tracks.txt",delimiter=",",skiprows=0)
 num_row,num_feature = data.shape[0],data.shape[1]-2
 x = data[:,:num_feature]
@@ -21,6 +22,7 @@ def regress(x,y,y_label):
     plt.scatter(y, regr.predict(x), color='blue')
     plt.xlabel(y_label)
     plt.ylabel('predicted')
+    plt.show()
 
 regress(x,latitude,'latitude')
 
@@ -37,7 +39,7 @@ def boxcox(x,y,y_label):
     plt.scatter(y, y_predict, color='blue')
     plt.xlabel(y_label)
     plt.ylabel('predicted')
-
+    plt.show()
 
 boxcox(x,latitude,'latitude')
 
