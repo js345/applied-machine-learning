@@ -6,7 +6,7 @@ spaces<-dist(xmat,method="euclidean",diag=FALSE,upper=FALSE)
 msp<-as.matrix(spaces)
 wmat<-exp(-msp/2*srange[1]^2)
 for (i in 2:6) {
-  grammat<-exp(-msp/2*srange[i]^2)
+  grammat<-exp(-msp/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
 wmod<-cv.glmnet(wmat, as.vector(prawns[,3]), alpha=0.5)
