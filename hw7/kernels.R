@@ -5,7 +5,6 @@ temperature<-read.table('./Oregon_Met_Data.txt',sep=" ",header=TRUE)
 # ignore data points of value 9999
 temperature<-temperature[temperature$Tmin_deg_C!=9999,]
 # avg(Tmin_deg_C) group by SID, Year -> annual mean temperature for each year
-#result<-setNames(aggregate(temperature$Tmin_deg_C, list(temperature$SID,temperature$Year), mean),c("SID","Year","Tmin_deg_C"))
 # avg(Tmin_deg_C) group by SID -> average annual mean temperature for each site
 result<-setNames(aggregate(temperature$Tmin_deg_C, list(temperature$SID), mean),c("SID","Tmin_deg_C"))
 # join location and result by SID
@@ -83,7 +82,7 @@ image(xvec, yvec, (zmat+wscale)/(2*wscale),xlab='East_UTM', ylab='North_UTM', co
 spaces<-dist(xmat,method="euclidean",diag=FALSE,upper=FALSE)
 msp<-as.matrix(spaces)
 wmat<-exp(-msp/(2*srange[1]^2))
-for (i in range(2:length(srange))) {
+for (i in (2:length(srange))) {
   grammat<-exp(-msp/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
@@ -92,7 +91,7 @@ plot(lassomod,main="regularized lasso regression with gaussian kernels")
 diff_ij<-function(i,j) sqrt(rowSums((pmat[i,]-xmat[j,])^2))
 distsampletopts<-outer(seq_len(10000),seq_len(dim(xmat)[1]), diff_ij)
 wmat<-exp(-distsampletopts/(2*srange[1]^2))
-for (i in range(2:length(srange))) {
+for (i in (2:length(srange))) {
   grammat<-exp(-distsampletopts/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
@@ -112,16 +111,16 @@ image(xvec, yvec, (zmat+wscale)/(2*wscale),xlab='East_UTM', ylab='North_UTM', co
 spaces<-dist(xmat,method="euclidean",diag=FALSE,upper=FALSE)
 msp<-as.matrix(spaces)
 wmat<-exp(-msp/(2*srange[1]^2))
-for (i in range(2:length(srange))) {
+for (i in (2:length(srange))) {
   grammat<-exp(-msp/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
-elastic<-cv.glmnet(wmat,y,alpha=0)
+elastic<-cv.glmnet(wmat,y,alpha=0.5)
 plot(elastic,main="regularized lasso regression with gaussian kernels")
 diff_ij<-function(i,j) sqrt(rowSums((pmat[i,]-xmat[j,])^2))
 distsampletopts<-outer(seq_len(10000),seq_len(dim(xmat)[1]), diff_ij)
 wmat<-exp(-distsampletopts/(2*srange[1]^2))
-for (i in range(2:length(srange))) {
+for (i in (2:length(srange))) {
   grammat<-exp(-distsampletopts/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
