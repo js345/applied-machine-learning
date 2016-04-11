@@ -115,7 +115,7 @@ for (i in (2:length(srange))) {
   grammat<-exp(-msp/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
-elastic<-cv.glmnet(wmat,y,alpha=0.5)
+elastic<-cv.glmnet(wmat,y,alpha=0)
 plot(elastic,main="regularized lasso regression with gaussian kernels")
 diff_ij<-function(i,j) sqrt(rowSums((pmat[i,]-xmat[j,])^2))
 distsampletopts<-outer(seq_len(10000),seq_len(dim(xmat)[1]), diff_ij)
@@ -124,7 +124,7 @@ for (i in (2:length(srange))) {
   grammat<-exp(-distsampletopts/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
-preds<-predict.cv.glmnet(lassomod,wmat,lambda=elastic$lambda.min)
+preds<-predict.cv.glmnet(elastic,wmat,lambda=elastic$lambda.min)
 zmat<-matrix(0, nrow=100, ncol=100)
 ptr<-1
 for (i in 1:100) {
