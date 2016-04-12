@@ -67,4 +67,4 @@ for (i in 1:100) {
   }
 }
 wscale=max(abs(min(preds)), abs(max(preds)))
-image(xvec, yvec, (zmat+wscale)/(2*wscale),xlab='East_UTM', ylab='North_UTM', col=heat.colors(20,alpha = 1), useRaster=TRUE, main="lasso cross validated lambdas")
+image(xvec, yvec, (zmat+wscale)/(2*wscale),xlab='East_UTM', ylab='North_UTM', col=heat.colors(20,alpha = 1), useRaster=TRUE, main="elastic net alpha=0.5")

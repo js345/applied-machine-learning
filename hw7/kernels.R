@@ -14,7 +14,7 @@ data<-as.matrix(data[,c('East_UTM','North_UTM','Tmin_deg_C')])
 xmat<-data[,c(1,2)]
 y<-as.vector(data[,3])
 # training - cross validation for best scale
-srange<-seq(90,140,10)
+srange<-seq(120000,170000,1000)
 mses<-rep(0,length(srange))
 flds<-createFolds(y, k = 5, list = TRUE, returnTrain = FALSE)
 for (k in 1:5) {
@@ -26,13 +26,13 @@ for (k in 1:5) {
     yTrain<-y[flds[[k]]]
     yTest<-y[-flds[[k]]]
     spaces<-dist(xTrain,method="euclidean",diag=FALSE,upper=FALSE)
-    msp<-as.matrix(spaces)
+    msp<-as.matrix(spaces^2)
     wmat<-exp(-msp/(2*scale^2))
     wmod<-glmnet(wmat, yTrain, lambda=0)
     # test on held out data
     diff_ij<-function(i,j) sqrt(rowSums((xTest[i,]-xTrain[j,])^2))
     distsampletopts<-outer(seq_len(dim(xTest)[1]),seq_len(dim(xTrain)[1]), diff_ij)
-    wmat<-exp(-distsampletopts/(2*scale^2))
+    wmat<-exp(-distsampletopts^2/(2*scale^2))
     ypred<-predict.glmnet(wmod, wmat, lambda=0)
     # compute mse
     mse<-sum((yTest - ypred)^2) / nrow(xTest)
@@ -43,7 +43,7 @@ for (k in 1:5) {
 bestScale<-srange[which.min(mses)]
 # use cv scale to train and predict
 spaces<-dist(xmat,method="euclidean",diag=FALSE,upper=FALSE)
-msp<-as.matrix(spaces)
+msp<-as.matrix(spaces^2)
 wmat<-exp(-msp/(2*bestScale^2))
 wmod<-glmnet(wmat, y, lambda=0)
 # 100 * 100 grid
@@ -63,7 +63,7 @@ for (i in 1:100) {
     ptr<-ptr+1
   }
 }
-diff_ij<-function(i,j) sqrt(rowSums((pmat[i,]-xmat[j,])^2))
+diff_ij<-function(i,j) rowSums((pmat[i,]-xmat[j,])^2)
 distsampletopts<-outer(seq_len(10000),seq_len(dim(xmat)[1]), diff_ij)
 wmat<-exp(-distsampletopts/(2*bestScale^2))
 preds<-predict.glmnet(wmod, wmat, lambda=0)
@@ -80,7 +80,7 @@ image(xvec, yvec, (zmat+wscale)/(2*wscale),xlab='East_UTM', ylab='North_UTM', co
 
 # part 2 regularized kernel methods
 spaces<-dist(xmat,method="euclidean",diag=FALSE,upper=FALSE)
-msp<-as.matrix(spaces)
+msp<-as.matrix(spaces^2)
 wmat<-exp(-msp/(2*srange[1]^2))
 for (i in (2:length(srange))) {
   grammat<-exp(-msp/(2*srange[i]^2))
@@ -88,7 +88,7 @@ for (i in (2:length(srange))) {
 }
 lassomod<-cv.glmnet(wmat,y,alpha=1)
 plot(lassomod,main="regularized lasso regression with gaussian kernels")
-diff_ij<-function(i,j) sqrt(rowSums((pmat[i,]-xmat[j,])^2))
+diff_ij<-function(i,j) rowSums((pmat[i,]-xmat[j,])^2)
 distsampletopts<-outer(seq_len(10000),seq_len(dim(xmat)[1]), diff_ij)
 wmat<-exp(-distsampletopts/(2*srange[1]^2))
 for (i in (2:length(srange))) {
@@ -109,7 +109,7 @@ image(xvec, yvec, (zmat+wscale)/(2*wscale),xlab='East_UTM', ylab='North_UTM', co
 
 # elastic net
 spaces<-dist(xmat,method="euclidean",diag=FALSE,upper=FALSE)
-msp<-as.matrix(spaces)
+msp<-as.matrix(spaces^2)
 wmat<-exp(-msp/(2*srange[1]^2))
 for (i in (2:length(srange))) {
   grammat<-exp(-msp/(2*srange[i]^2))
@@ -117,7 +117,7 @@ for (i in (2:length(srange))) {
 }
 elastic<-cv.glmnet(wmat,y,alpha=0)
 plot(elastic,main="regularized lasso regression with gaussian kernels")
-diff_ij<-function(i,j) sqrt(rowSums((pmat[i,]-xmat[j,])^2))
+diff_ij<-function(i,j) rowSums((pmat[i,]-xmat[j,])^2)
 distsampletopts<-outer(seq_len(10000),seq_len(dim(xmat)[1]), diff_ij)
 wmat<-exp(-distsampletopts/(2*srange[1]^2))
 for (i in (2:length(srange))) {
