@@ -17,8 +17,8 @@ FLAGS = flags.FLAGS
 flags.DEFINE_boolean('fake_data', False, 'If true, uses fake data '
                                          'for unit testing.')
 flags.DEFINE_integer('max_steps', 2000, 'Number of steps to run trainer.')
-flags.DEFINE_float('learning_rate', 0.0001, 'Initial learning rate.')
-flags.DEFINE_float('dropout', 1.0, 'Keep probability for training dropout.')
+flags.DEFINE_float('learning_rate', 1e-4, 'Initial learning rate.')
+flags.DEFINE_float('dropout', 0.5, 'Keep probability for training dropout.')
 flags.DEFINE_string('data_dir', '/tmp/data', 'Directory for storing data')
 flags.DEFINE_string('summaries_dir', '/tmp/mnist_logs', 'Summaries directory')
 
@@ -38,8 +38,6 @@ def train():
         image_shaped_input = tf.reshape(x, [-1, 28, 28, 1])
         tf.image_summary('input', image_shaped_input, 10)
         y_ = tf.placeholder(tf.float32, [None, 10], name='y-input')
-        keep_prob = tf.placeholder(tf.float32)
-        tf.scalar_summary('dropout_keep_probability', keep_prob)
 
     # We can't initialize these variables to 0 - the network will get stuck.
     def weight_variable(shape):
@@ -60,9 +58,12 @@ def train():
 
     W_conv1 = weight_variable([5, 5, 1, 32])
     b_conv1 = bias_variable([32])
+
     x_image = tf.reshape(x, [-1,28,28,1])
+
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
+
     W_conv2 = weight_variable([5, 5, 32, 64])
     b_conv2 = bias_variable([64])
 
@@ -75,6 +76,7 @@ def train():
     h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
+    keep_prob = tf.placeholder(tf.float32)
     h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
     W_fc2 = weight_variable([1024, 10])
@@ -102,7 +104,6 @@ def train():
     # Merge all the summaries and write them out to /tmp/mnist_logs (by default)
     merged = tf.merge_all_summaries()
     train_writer = tf.train.SummaryWriter(FLAGS.summaries_dir + '/train', sess.graph)
-    test_writer = tf.train.SummaryWriter(FLAGS.summaries_dir + '/test')
     tf.initialize_all_variables().run()
 
     # Train the model, and also write summaries.
@@ -120,13 +121,12 @@ def train():
         return {x: xs, y_: ys, keep_prob: k}
 
     for i in range(FLAGS.max_steps):
+        summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
         if i % 100 == 0:  # Record summaries and test-set accuracy
-
+            train_writer.add_summary(summary, i)
             summary, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
             #test_writer.add_summary(summary, i)
             print('Accuracy at step %s: %s' % (i, acc))
-            summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
-            train_writer.add_summary(summary, i)
         '''
         else:  # Record train set summarieis, and train
             summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
