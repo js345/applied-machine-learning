@@ -129,10 +129,10 @@ def train():
 
     for i in range(FLAGS.max_steps):
         if i % 100 == 0:  # Record summaries and test-set accuracy
-            '''
+
             summary, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
-            test_writer.add_summary(summary, i)
-            print('Accuracy at step %s: %s' % (i, acc))'''
+            #test_writer.add_summary(summary, i)
+            print('Accuracy at step %s: %s' % (i, acc))
             summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
             train_writer.add_summary(summary, i)
         '''
