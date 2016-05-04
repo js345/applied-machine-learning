@@ -15,7 +15,7 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_boolean('fake_data', False, 'If true, uses fake data '
                                          'for unit testing.')
-flags.DEFINE_integer('max_steps', 20000, 'Number of steps to run trainer.')
+flags.DEFINE_integer('max_steps', 4000, 'Number of steps to run trainer.')
 flags.DEFINE_float('learning_rate', 1e-4, 'Initial learning rate.')
 flags.DEFINE_float('dropout', 0.5, 'Keep probability for training dropout.')
 flags.DEFINE_string('data_dir', '/tmp/data', 'Directory for storing data')
@@ -37,6 +37,8 @@ def train():
         image_shaped_input = tf.reshape(x, [-1, 28, 28, 1])
         tf.image_summary('input', image_shaped_input, 10)
         y_ = tf.placeholder(tf.float32, [None, 10], name='y-input')
+        keep_prob = tf.placeholder(tf.float32)
+
 
     # We can't initialize these variables to 0 - the network will get stuck.
     def weight_variable(shape):
@@ -80,7 +82,6 @@ def train():
     h_pool3_flat = tf.reshape(h_conv3, [-1, 7*7*64])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool3_flat, W_fc1) + b_fc1)
 
-    keep_prob = tf.placeholder(tf.float32)
     h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
     W_fc2 = weight_variable([1024, 10])
@@ -108,6 +109,7 @@ def train():
     # Merge all the summaries and write them out to /tmp/mnist_logs (by default)
     merged = tf.merge_all_summaries()
     train_writer = tf.train.SummaryWriter(FLAGS.summaries_dir + '/train', sess.graph)
+    test_writer = tf.train.SummaryWriter(FLAGS.summaries_dir + '/test')
     tf.initialize_all_variables().run()
 
     # Train the model, and also write summaries.
@@ -125,16 +127,13 @@ def train():
         return {x: xs, y_: ys, keep_prob: k}
 
     for i in range(FLAGS.max_steps):
-        summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
         if i % 100 == 0:  # Record summaries and test-set accuracy
-            train_writer.add_summary(summary, i)
             summary, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
-            #test_writer.add_summary(summary, i)
+            test_writer.add_summary(summary, i)
             print('Accuracy at step %s: %s' % (i, acc))
-        '''
-        else:  # Record train set summarieis, and train
+        else: # Record train set summarieis, and train
             summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
-            train_writer.add_summary(summary, i)'''
+            train_writer.add_summary(summary, i)
 
 
 def main(_):

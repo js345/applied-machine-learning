@@ -190,6 +190,7 @@ def inference(images):
         conv = tf.nn.conv2d(images, kernel, [1, 1, 1, 1], padding='SAME')
         biases = _variable_on_cpu('biases', [64], tf.constant_initializer(0.0))
         bias = tf.nn.bias_add(conv, biases)
+        phase_train = tf.placeholder(tf.bool, name='phase_train')
         conv1 = tf.nn.relu(bias, name=scope.name)
         _activation_summary(conv1)
 
@@ -207,8 +208,21 @@ def inference(images):
         conv = tf.nn.conv2d(norm1, kernel, [1, 1, 1, 1], padding='SAME')
         biases = _variable_on_cpu('biases', [64], tf.constant_initializer(0.1))
         bias = tf.nn.bias_add(conv, biases)
+        phase_train = tf.placeholder(tf.bool, name='phase_train')
         conv2 = tf.nn.relu(bias, name=scope.name)
         _activation_summary(conv2)
+
+    # We can't initialize these variables to 0 - the network will get stuck.
+    def weight_variable(shape):
+        """Create a weight variable with appropriate initialization."""
+        initial = tf.truncated_normal(shape, stddev=0.1)
+        return tf.Variable(initial)
+
+    def bias_variable(shape):
+        """Create a bias variable with appropriate initialization."""
+        initial = tf.constant(0.1, shape=shape)
+        return tf.Variable(initial)
+
 
     # norm2
     norm2 = tf.nn.lrn(conv2, 4, bias=1.0, alpha=0.001 / 9.0, beta=0.75,
@@ -236,13 +250,17 @@ def inference(images):
         local4 = tf.nn.relu(tf.matmul(local3, weights) + biases, name=scope.name)
         _activation_summary(local4)
 
+    # dropout
+    keep_prob = tf.placeholder(tf.float32)
+    h_drop = tf.nn.dropout(local4, keep_prob)
+
     # softmax, i.e. softmax(WX + b)
     with tf.variable_scope('softmax_linear') as scope:
         weights = _variable_with_weight_decay('weights', [192, NUM_CLASSES],
                                               stddev=1 / 192.0, wd=0.0)
         biases = _variable_on_cpu('biases', [NUM_CLASSES],
                                   tf.constant_initializer(0.0))
-        softmax_linear = tf.add(tf.matmul(local4, weights), biases, name=scope.name)
+        softmax_linear = tf.add(tf.matmul(h_drop, weights), biases, name=scope.name)
         _activation_summary(softmax_linear)
 
     return softmax_linear
