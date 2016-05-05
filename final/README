@@ -1,0 +1,8 @@
+Requirements
+python-2.7
+tensorflow-0.8
+
+How to run
+python part1.py
+python part2.py
+python cifar10_train.py
