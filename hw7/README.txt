@@ -1,0 +1,1 @@
+To run the code, just simply import all the R code into R studio and run it.

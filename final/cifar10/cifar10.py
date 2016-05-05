@@ -188,9 +188,10 @@ def inference(images):
         kernel = _variable_with_weight_decay('weights', shape=[5, 5, 3, 64],
                                              stddev=1e-4, wd=0.0)
         conv = tf.nn.conv2d(images, kernel, [1, 1, 1, 1], padding='SAME')
-        biases = _variable_on_cpu('biases', [64], tf.constant_initializer(0.0))
-        bias = tf.nn.bias_add(conv, biases)
         phase_train = tf.placeholder(tf.bool, name='phase_train')
+        conv_bn = batch_norm(conv, 64, phase_train)
+        biases = _variable_on_cpu('biases', [64], tf.constant_initializer(0.0))
+        bias = tf.nn.bias_add(conv_bn, biases)
         conv1 = tf.nn.relu(bias, name=scope.name)
         _activation_summary(conv1)
 
@@ -206,9 +207,10 @@ def inference(images):
         kernel = _variable_with_weight_decay('weights', shape=[5, 5, 64, 64],
                                              stddev=1e-4, wd=0.0)
         conv = tf.nn.conv2d(norm1, kernel, [1, 1, 1, 1], padding='SAME')
-        biases = _variable_on_cpu('biases', [64], tf.constant_initializer(0.1))
-        bias = tf.nn.bias_add(conv, biases)
         phase_train = tf.placeholder(tf.bool, name='phase_train')
+        conv_bn = batch_norm(conv, 64, phase_train)
+        biases = _variable_on_cpu('biases', [64], tf.constant_initializer(0.1))
+        bias = tf.nn.bias_add(conv_bn, biases)
         conv2 = tf.nn.relu(bias, name=scope.name)
         _activation_summary(conv2)
 
@@ -229,6 +231,25 @@ def inference(images):
                       name='norm2')
     # pool2
     pool2 = tf.nn.max_pool(norm2, ksize=[1, 3, 3, 1],
+                           strides=[1, 2, 2, 1], padding='SAME', name='pool2')
+
+    # conv3
+    with tf.variable_scope('conv3') as scope:
+        kernel = _variable_with_weight_decay('weights', shape=[5, 5, 64, 64],
+                                             stddev=1e-4, wd=0.0)
+        conv = tf.nn.conv2d(pool2, kernel, [1, 1, 1, 1], padding='SAME')
+        phase_train = tf.placeholder(tf.bool, name='phase_train')
+        conv_bn = batch_norm(conv, 64, phase_train)
+        biases = _variable_on_cpu('biases', [64], tf.constant_initializer(0.1))
+        bias = tf.nn.bias_add(conv_bn, biases)
+        conv3 = tf.nn.relu(bias, name=scope.name)
+        _activation_summary(conv3)
+
+    # norm3
+    norm3 = tf.nn.lrn(conv3, 4, bias=1.0, alpha=0.001 / 9.0, beta=0.75,
+                      name='norm2')
+    # pool3
+    pool2 = tf.nn.max_pool(norm3, ksize=[1, 3, 3, 1],
                            strides=[1, 2, 2, 1], padding='SAME', name='pool2')
 
     # local3
@@ -263,7 +284,7 @@ def inference(images):
         softmax_linear = tf.add(tf.matmul(h_drop, weights), biases, name=scope.name)
         _activation_summary(softmax_linear)
 
-    return softmax_linear
+    return tf.nn.softmax(softmax_linear)
 
 
 def loss(logits, labels):

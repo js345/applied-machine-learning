@@ -23,7 +23,7 @@ for (i in 2:length(srange)) {
   grammat<-exp(-msp/(2*srange[i]^2))
   wmat<-cbind(wmat,grammat)
 }
-wmod<-cv.glmnet(wmat, y, alpha=0)
+wmod<-cv.glmnet(wmat, y, alpha=0.2)
 plot(wmod,main="elastic")
 # 100 * 100 grid
 xmin<-min(xmat[,1])
@@ -63,4 +63,4 @@ for (i in 1:100) {
   }
 }
 wscale=max(abs(min(preds)), abs(max(preds)))
-image.plot(xvec, yvec, zmat ,xlab='East_UTM', ylab='North_UTM', col=heat.colors(20,alpha = 1), useRaster=TRUE, legend.only=FALSE, main="elastic")
+image.plot(xvec, yvec, zmat ,xlab='East_UTM', ylab='North_UTM', col=heat.colors(20,alpha = 1), useRaster=TRUE, legend.only=FALSE, main="elastic alpha = 0.2")
